@@ -14,216 +14,669 @@ document.addEventListener("DOMContentLoaded", () => {
   // Hinweis: "pron" ist eine einfache Aussprachehilfe für Deutschsprecher (nicht IPA).
   // "tags" steuern Filter.
   const CARDS = [
-    // --- Smalltalk Basics ---
-    c("smalltalk_001", "Oi! Tudo bem?", "oi – TU-du béĩ", "Hi! Alles gut?", ["smalltalk","basis"]),
-    c("smalltalk_002", "Tudo certo.", "TU-du SÉR-tu", "Alles in Ordnung.", ["smalltalk","basis"]),
-    c("smalltalk_003", "E você?", "i vo-SÉ", "Und du?", ["smalltalk","basis"]),
-    c("smalltalk_004", "Como você tá?", "KO-mu vo-SÉ tá", "Wie geht’s dir? (locker)", ["smalltalk","basis"]),
-    c("smalltalk_005", "Tô bem, e você?", "to béĩ, i vo-SÉ", "Mir geht’s gut, und dir?", ["smalltalk","basis"]),
-    c("smalltalk_006", "Mais ou menos.", "mais u MÉ-nus", "So mittel.", ["smalltalk","basis"]),
-    c("smalltalk_007", "Tô cansado(a).", "to kan-SA-du/da", "Ich bin müde.", ["smalltalk","basis"]),
-    c("smalltalk_008", "Que legal!", "ki le-GAU", "Wie cool!", ["smalltalk","basis"]),
-    c("smalltalk_009", "Sério?", "SÉ-ri-u", "Echt?", ["smalltalk","basis"]),
-    c("smalltalk_010", "Pois é…", "pois é", "Tja… / Genau…", ["smalltalk","basis"]),
-    c("smalltalk_011", "Entendi.", "en-dji-DI", "Verstehe.", ["smalltalk","basis"]),
-    c("smalltalk_012", "Faz sentido.", "fas sin-TI-du", "Macht Sinn.", ["smalltalk","basis"]),
-    c("smalltalk_013", "Sem problema.", "sẽ pro-BLE-ma", "Kein Problem.", ["smalltalk","basis"]),
-    c("smalltalk_014", "Tranquilo(a).", "tran-KWI-lu/la", "Alles entspannt.", ["smalltalk","basis"]),
-    c("smalltalk_015", "Bora!", "BO-ra", "Los geht’s!", ["smalltalk","basis"]),
-    c("smalltalk_016", "Vamos nessa!", "VA-mus NÉ-sa", "Auf geht’s!", ["smalltalk","basis"]),
-    c("smalltalk_017", "Você é de onde?", "vo-SÉ é dji Õ-dji", "Woher kommst du?", ["smalltalk","basis"]),
-    c("smalltalk_018", "Sou da Alemanha.", "sou da a-le-MÃ-nha", "Ich bin aus Deutschland.", ["smalltalk","basis"]),
-    c("smalltalk_019", "Moro em [cidade].", "MO-ru ẽ [si-DA-dji]", "Ich wohne in [Stadt].", ["smalltalk","basis"]),
-    c("smalltalk_020", "Você trabalha com o quê?", "vo-SÉ tra-BA-lha kõ u kê", "Womit arbeitest du?", ["smalltalk","basis"]),
-    c("smalltalk_021", "Eu trabalho com [área].", "eu tra-BA-lhu kõ [A-re-a]", "Ich arbeite in [Bereich].", ["smalltalk","basis"]),
-    c("smalltalk_022", "Tô aprendendo português.", "to a-pren-DEN-du por-tu-GÊS", "Ich lerne Portugiesisch.", ["smalltalk","basis"]),
-    c("smalltalk_023", "Meu português ainda é básico.", "mêu por-tu-GÊS a-ĩn-da é BA-zi-ku", "Mein Portugiesisch ist noch basic.", ["smalltalk","basis"]),
-    c("smalltalk_024", "Pode falar mais devagar?", "PO-dji fa-LAR mais dji-va-GAR", "Kannst du langsamer sprechen?", ["smalltalk","basis"]),
-    c("smalltalk_025", "Pode repetir, por favor?", "PO-dji re-pe-TIR por fa-VOR", "Kannst du wiederholen?", ["smalltalk","basis"]),
-    c("smalltalk_026", "Como se diz isso em português?", "KO-mu si DIZ i-su ẽ por-tu-GÊS", "Wie sagt man das auf Portugiesisch?", ["smalltalk","basis"]),
-    c("smalltalk_027", "Qual é a melhor coisa aqui?", "kwau é a me-LHOR KÔi-za a-KI", "Was ist hier das Beste?", ["smalltalk","basis"]),
-    c("smalltalk_028", "Tô chegando agora.", "to ʃe-GÃ-du a-GO-ra", "Ich bin gerade erst angekommen.", ["smalltalk","basis"]),
-    c("smalltalk_029", "Faz tempo!", "fas TẼm-pu", "Lange nicht gesehen!", ["smalltalk","basis"]),
-    c("smalltalk_030", "Que saudade!", "ki sau-DA-dji", "Ich hab dich vermisst!", ["smalltalk","basis"]),
+  // =====================
+// C) MASSIVER INPUT-PACK (Template-basiert, erzeugt automatisch viele natürliche Sätze)
+// =====================
 
-    // --- Wetter ---
-    c("wetter_001", "Hoje tá calor.", "HO-dji tá ka-LOR", "Heute ist es heiß.", ["wetter","basis"]),
-    c("wetter_002", "Hoje tá frio.", "HO-dji tá FRI-u", "Heute ist es kalt.", ["wetter","basis"]),
-    c("wetter_003", "Tá abafado.", "tá a-fa-BA-du", "Schwül.", ["wetter","basis"]),
-    c("wetter_004", "Tá ventando.", "tá ven-TÃ-du", "Es ist windig.", ["wetter","basis"]),
-    c("wetter_005", "Tá chovendo.", "tá ʃo-VEN-du", "Es regnet.", ["wetter","basis"]),
-    c("wetter_006", "Vai chover mais tarde.", "vai ʃo-VER mais TAR-dji", "Später wird’s regnen.", ["wetter","basis"]),
-    c("wetter_007", "O tempo tá mudando.", "u TẼm-pu tá mu-DÃ-du", "Das Wetter ändert sich.", ["wetter","basis"]),
-    c("wetter_008", "Tá nublado.", "tá nu-BLA-du", "Bewölkt.", ["wetter","basis"]),
-    c("wetter_009", "Tá ensolarado.", "tá en-so-la-RA-du", "Sonnig.", ["wetter","basis"]),
-    c("wetter_010", "A previsão é de chuva.", "a pre-vi-ZÃ-u é dji ʃu-va", "Vorhersage: Regen.", ["wetter","basis"]),
-    c("wetter_011", "Qual a previsão pra amanhã?", "kwau a pre-vi-ZÃ-u pra a-mã-NHÃ", "Wie ist die Vorhersage für morgen?", ["wetter","basis"]),
-    c("wetter_012", "Tá fazendo uns 25 graus.", "tá fa-ZEN-du ũs vin-ti-SIĨn-ku graus", "So um die 25 Grad.", ["wetter","basis"]),
-    c("wetter_013", "De noite esfria.", "dji NOi-tchi es-FRI-a", "Abends kühlt es ab.", ["wetter","basis"]),
-    c("wetter_014", "Chuva do nada.", "ʃu-va du NA-da", "Plötzlicher Regen.", ["wetter","basis"]),
-    c("wetter_015", "Leva um casaco.", "LE-va ũ ka-SA-ku", "Nimm eine Jacke mit.", ["wetter","basis"]),
-    c("wetter_016", "Tá um clima gostoso.", "tá ũ KLI-ma gos-TO-zu", "Angenehmes Klima.", ["wetter","basis"]),
-    c("wetter_017", "Tá um calorão!", "tá ũ ka-lo-RÃ-u", "Riesige Hitze!", ["wetter","basis"]),
-    c("wetter_018", "Tá garoando.", "tá ga-ro-Ã-du", "Es nieselt.", ["wetter","basis"]),
-    c("wetter_019", "A chuva tá forte.", "a ʃu-va tá FOR-tchi", "Starker Regen.", ["wetter","basis"]),
-    c("wetter_020", "Tá dando trovão.", "tá DÃ-du tro-VÃ-u", "Es donnert.", ["wetter","basis"]),
+// Kleine Helfer für deterministische IDs
+function makeId(prefix, s) {
+  // simple hash
+  let h = 0;
+  for (let i = 0; i < s.length; i++) h = (h * 31 + s.charCodeAt(i)) >>> 0;
+  return ${prefix}_${h.toString(16)};
+}
 
-    // --- Essen/Trinken ---
-    c("essen_001", "Tô com fome.", "to kõ FO-mi", "Ich habe Hunger.", ["essen","basis"]),
-    c("essen_002", "Tô com sede.", "to kõ SE-dji", "Ich habe Durst.", ["essen","basis"]),
-    c("essen_003", "Vamos comer alguma coisa?", "VA-mus ko-MER au-GU-ma KÔi-za", "Wollen wir was essen?", ["essen","basis"]),
-    c("essen_004", "O que você recomenda?", "u kê vo-SÉ re-ko-MEN-da", "Was empfiehlst du?", ["essen","basis"]),
-    c("essen_005", "Eu queria um café, por favor.", "eu ki-RI-a ũ ka-FÉ por fa-VOR", "Ich hätte gern einen Kaffee.", ["essen","basis"]),
-    c("essen_006", "Sem açúcar, por favor.", "sẽ a-SU-kar", "Ohne Zucker.", ["essen","basis"]),
-    c("essen_007", "Com gelo / sem gelo.", "kõ DZE-lu / sẽ DZE-lu", "Mit Eis / ohne Eis.", ["essen","basis"]),
-    c("essen_008", "Bem passado / ao ponto.", "bẽ pa-SA-du / au PÕn-tu", "Durch / medium.", ["essen","basis"]),
-    c("essen_009", "Pode ser.", "PO-dji SER", "Kann so sein / passt.", ["essen","basis"]),
-    c("essen_010", "Capricha!", "ka-PRI-ʃa", "Mach ordentlich! (umgangssprachlich)", ["essen","basis"]),
-    c("essen_011", "Tá uma delícia.", "tá u-ma dji-LI-si-a", "Es ist mega lecker.", ["essen","basis"]),
-    c("essen_012", "Tá bom demais!", "tá bõ dji-MAIS", "Viel zu gut!", ["essen","basis"]),
-    c("essen_013", "Eu sou alérgico(a) a [X].", "eu sou a-LÉR-dji-ku/ka a", "Ich bin allergisch gegen [X].", ["essen","basis"]),
-    c("essen_014", "Sem pimenta, por favor.", "sẽ pi-MEN-ta", "Ohne Chili.", ["essen","basis"]),
-    c("essen_015", "Só um pouquinho.", "só ũ pou-KI-nhu", "Nur ein bisschen.", ["essen","basis"]),
-    c("essen_016", "Mais um, por favor.", "mais ũ", "Noch eins, bitte.", ["essen","basis"]),
-    c("essen_017", "A conta, por favor.", "a KÕn-ta", "Die Rechnung, bitte.", ["essen","basis"]),
-    c("essen_018", "Pode dividir a conta?", "PO-dji dji-vi-DIR a KÕn-ta", "Können wir getrennt zahlen?", ["essen","basis"]),
-    c("essen_019", "Cartão ou dinheiro?", "kar-TÃ-u ou dji-NHEi-ru", "Karte oder bar?", ["essen","basis"]),
-    c("essen_020", "É pra viagem.", "é pra vi-A-GẼĩ", "Zum Mitnehmen.", ["essen","basis"]),
-    c("essen_021", "É pra comer aqui.", "é pra ko-MER a-KI", "Hier essen.", ["essen","basis"]),
-    c("essen_022", "Tem opção vegetariana?", "tẽ o-psi-Ã-u ve-dje-ta-ri-A-na", "Gibt’s vegetarisch?", ["essen","basis"]),
-    c("essen_023", "Qual é o prato do dia?", "kwau é u PRA-tu du Dji-a", "Was ist das Tagesgericht?", ["essen","basis"]),
-    c("essen_024", "Pode tirar a cebola?", "PO-dji ti-RAR a se-BO-la", "Kannst du die Zwiebel weglassen?", ["essen","basis"]),
-    c("essen_025", "Eu quero água com gás.", "eu KÉ-ru A-gwa kõ GAS", "Sprudelwasser.", ["essen","basis"]),
-    c("essen_026", "Eu quero água sem gás.", "… sẽ GAS", "Stilles Wasser.", ["essen","basis"]),
-    c("essen_027", "Um suco de laranja.", "ũ SU-ku dji la-RÃn-ja", "Orangensaft.", ["essen","basis"]),
-    c("essen_028", "Uma cerveja, por favor.", "u-ma ser-VE-ja", "Ein Bier, bitte.", ["essen","basis"]),
-    c("essen_029", "Sem álcool.", "sẽ AL-ku-ol", "Ohne Alkohol.", ["essen","basis"]),
-    c("essen_030", "Tá muito salgado/doce.", "tá MUI-tu sal-GA-du/DO-si", "Zu salzig/süß.", ["essen","basis"]),
+const EXTRA_TEMPLATES = {
+  smalltalk: {
+    starters: ["E aí", "Então", "Aliás", "Na real", "Sinceramente", "Tipo assim"],
+    opinions: ["eu acho que", "eu sinto que", "pra mim", "na minha opinião", "eu diria que"],
+    topics: ["trabalho", "família", "viagem", "comida", "tempo", "fim de semana", "rotina", "notícias"],
+    verbs: ["tá", "foi", "vai ser", "anda", "ficou", "tá ficando"],
+    adj: ["legal", "tranquilo", "corrido", "complicado", "bom", "engraçado", "pesado", "de boa"],
+  },
+  wetter: {
+    a: ["Hoje tá", "Agora tá", "De manhã tava", "De tarde deve ficar", "À noite costuma ficar"],
+    b: ["calor", "frio", "nublado", "ensolarado", "abafado", "ventando", "chovendo", "garoando"],
+    c: ["aqui", "por aqui", "na minha cidade", "na rua", "lá fora"],
+    d: ["mesmo", "demais", "pra caramba", "um pouco", "bem de leve"],
+  },
+  essen: {
+    want: ["Eu queria", "Eu vou querer", "Me vê", "Pra mim", "Vou pedir"],
+    items: ["um café", "um suco de laranja", "uma água com gás", "uma água sem gás", "um pão de queijo", "o prato do dia", "um sanduíche", "uma salada"],
+    extras: ["sem açúcar", "com gelo", "sem gelo", "sem pimenta", "bem forte", "só um pouquinho"],
+    add: ["por favor", "rapidinho", "se der", "quando puder"],
+    pay: ["A conta, por favor", "Pode dividir a conta?", "Cartão ou dinheiro?"],
+  },
+  urlaub: {
+    travel: ["Cheguei", "Vou ficar", "Tô indo", "Tô voltando", "Tô de férias"],
+    when: ["ontem", "hoje", "amanhã", "essa semana", "no fim de semana"],
+    place: ["na praia", "no centro", "no hotel", "no aeroporto", "no mercado", "na cidade"],
+    ask: ["Como eu chego", "É longe", "Dá pra ir a pé", "Quanto custa", "Que horas abre"],
+  },
+  geschehnisse: {
+    open: ["Hoje", "Ontem", "Essa semana", "No trabalho", "Em casa"],
+    happened: ["foi corrido", "foi tranquilo", "deu tudo certo", "deu ruim", "aconteceu uma coisa engraçada", "rolou uma situação chata"],
+    reaction: ["mas faz parte", "então tá tudo bem", "e é isso", "pois é", "que loucura", "mas passou"],
+  },
+};
 
-    // --- Urlaub/Reisen ---
-    c("urlaub_001", "Tô de férias.", "to dji FÉ-ri-as", "Ich habe Urlaub.", ["urlaub","basis"]),
-    c("urlaub_002", "Cheguei ontem.", "ʃe-GUEi Õn-tẽ", "Ich bin gestern angekommen.", ["urlaub","basis"]),
-    c("urlaub_003", "Vou ficar uma semana.", "vou fi-KAR u-ma se-MA-na", "Ich bleibe eine Woche.", ["urlaub","basis"]),
-    c("urlaub_004", "Qual é a melhor praia?", "kwau é a me-LHOR PRA-ia", "Was ist der beste Strand?", ["urlaub","basis"]),
-    c("urlaub_005", "Como eu chego lá?", "KO-mu eu ʃe-gu LA", "Wie komme ich dahin?", ["urlaub","basis"]),
-    c("urlaub_006", "É longe daqui?", "é LÕn-dji da-KI", "Ist es weit von hier?", ["urlaub","basis"]),
-    c("urlaub_007", "Dá pra ir a pé?", "da pra ir a PÉ", "Kann man zu Fuß gehen?", ["urlaub","basis"]),
-    c("urlaub_008", "Onde fica o banheiro?", "Õn-dji FI-ka u ba-NHEi-ru", "Wo ist die Toilette?", ["urlaub","basis"]),
-    c("urlaub_009", "Você pode me ajudar?", "vo-SÉ PO-dji mi a-ju-DAR", "Kannst du mir helfen?", ["urlaub","basis"]),
-    c("urlaub_010", "Tô procurando um hotel.", "to pro-ku-RÃn-du ũ o-TÉL", "Ich suche ein Hotel.", ["urlaub","basis"]),
-    c("urlaub_011", "Tem vaga?", "tẽ VA-ga", "Haben Sie frei?", ["urlaub","basis"]),
-    c("urlaub_012", "Eu fiz uma reserva.", "eu FIZ u-ma re-ZER-va", "Ich habe reserviert.", ["urlaub","basis"]),
-    c("urlaub_013", "Qual é a senha do Wi-Fi?", "kwau é a SẼ-nha du uai-FAI", "Wi-Fi Passwort?", ["urlaub","basis"]),
-    c("urlaub_014", "Que horas abre/fecha?", "ki O-ras A-bri/FE-ʃa", "Wann öffnet/schließt es?", ["urlaub","basis"]),
-    c("urlaub_015", "Quanto custa?", "KWÃn-tu KUS-ta", "Wie viel kostet es?", ["urlaub","basis"]),
-    c("urlaub_016", "Tá caro.", "tá KA-ru", "Das ist teuer.", ["urlaub","basis"]),
-    c("urlaub_017", "Tem desconto?", "tẽ djiʃ-KÕn-tu", "Gibt’s Rabatt?", ["urlaub","basis"]),
-    c("urlaub_018", "Só tô olhando.", "só to o-LHÃn-du", "Ich schaue nur.", ["urlaub","basis"]),
-    c("urlaub_019", "Pode tirar uma foto pra mim?", "PO-dji ti-RAR u-ma FO-tu", "Kannst du ein Foto machen?", ["urlaub","basis"]),
-    c("urlaub_020", "Ficou ótimo!", "fi-KOU O-ti-mu", "Ist super geworden!", ["urlaub","basis"]),
+// Erzeugt viele zusätzliche Karten (hunderte), ohne dass du alles manuell tippst
+function buildExtraCards() {
+  const out = [];
 
-    // --- Geschehnisse / Alltag / Pläne ---
-    c("ges_001", "E aí, o que rolou?", "i a-I, u kê ho-LOU", "Was ist passiert? (locker)", ["geschehnisse","basis"]),
-    c("ges_002", "Nada demais.", "NA-da dji-MAIS", "Nichts Besonderes.", ["geschehnisse","basis"]),
-    c("ges_003", "Aconteceu uma coisa engraçada.", "a-kon-te-SEU u-ma KÔi-za en-gra-SA-da", "Etwas Lustiges ist passiert.", ["geschehnisse","basis"]),
-    c("ges_004", "Foi corrido hoje.", "foi ko-RI-du HO-dji", "Heute war’s stressig.", ["geschehnisse","basis"]),
-    c("ges_005", "Tô sem tempo.", "to sẽ TẼm-pu", "Ich hab keine Zeit.", ["geschehnisse","basis"]),
-    c("ges_006", "Vamos marcar alguma coisa.", "VA-mus mar-KAR au-GU-ma KÔi-za", "Lass uns was ausmachen.", ["geschehnisse","basis"]),
-    c("ges_007", "Você topa amanhã?", "vo-SÉ TO-pa a-mã-NHÃ", "Hast du morgen Lust?", ["geschehnisse","basis"]),
-    c("ges_008", "Pra mim tá ótimo.", "pra mĩ tá O-ti-mu", "Für mich passt’s super.", ["geschehnisse","basis"]),
-    c("ges_009", "Que horas?", "ki O-ras", "Um wie viel Uhr?", ["geschehnisse","basis"]),
-    c("ges_010", "Umas oito.", "u-mas Oi-tu", "So gegen acht.", ["geschehnisse","basis"]),
-    c("ges_011", "Tô a caminho.", "to a ka-MI-nhu", "Ich bin unterwegs.", ["geschehnisse","basis"]),
-    c("ges_012", "Já tô chegando.", "ja to ʃe-GÃn-du", "Bin gleich da.", ["geschehnisse","basis"]),
-    c("ges_013", "Deu tudo certo.", "dêu TU-du SÉR-tu", "Hat alles geklappt.", ["geschehnisse","basis"]),
-    c("ges_014", "Deu ruim.", "dêu RUĩ", "Lief schief. (sehr umgangssprachlich)", ["geschehnisse","basis"]),
-    c("ges_015", "Que pena.", "ki PÊ-na", "Schade.", ["geschehnisse","basis"]),
-    c("ges_016", "Que bom!", "ki bõ", "Wie schön!", ["geschehnisse","basis"]),
-    c("ges_017", "Tô animado(a).", "to a-ni-MA-du/da", "Ich bin motiviert/gehyped.", ["geschehnisse","basis"]),
-    c("ges_018", "Tô de boa.", "to dji BO-a", "Mir geht’s entspannt.", ["geschehnisse","basis"]),
-    c("ges_019", "Bateu um cansaço.", "ba-TEU ũ kan-SA-su", "Plötzlich müde geworden.", ["geschehnisse","basis"]),
-    c("ges_020", "Vamos ver.", "VA-mus VER", "Mal sehen.", ["geschehnisse","basis"]),
+  // Smalltalk: Starter + opinion + topic + adj
+  for (const s of EXTRA_TEMPLATES.smalltalk.starters) {
+    for (const o of EXTRA_TEMPLATES.smalltalk.opinions) {
+      for (const t of EXTRA_TEMPLATES.smalltalk.topics) {
+        const pt = ${s}, ${o} ${t} ${pick(EXTRA_TEMPLATES.smalltalk.verbs)} ${pick(EXTRA_TEMPLATES.smalltalk.adj)}.;
+        out.push({ id: makeId("auto_smalltalk", pt), pt, pron: "", de: "Smalltalk-Variante (automatisch erzeugt)", tags: ["smalltalk","boost"] });
+      }
+    }
+  }
 
-    // --- Mehr „sprechfertige“ Muster/Varianten (Input-Boost) ---
-    c("boost_001", "Na real, eu acho que…", "na he-AL eu A-ʃu ki", "Ehrlich: ich denke, dass…", ["smalltalk","boost"]),
-    c("boost_002", "Tipo assim…", "TI-pu a-Sĩ", "So ungefähr…", ["smalltalk","boost"]),
-    c("boost_003", "Então…", "en-TÃ-u", "Also…", ["smalltalk","boost"]),
-    c("boost_004", "Aliás…", "a-li-ÁS", "Übrigens…", ["smalltalk","boost"]),
-    c("boost_005", "Deixa eu ver…", "DEi-ʃa eu VER", "Lass mich kurz überlegen…", ["smalltalk","boost"]),
-    c("boost_006", "Eu curto [X].", "eu KUR-tu", "Ich mag [X]. (locker)", ["smalltalk","boost"]),
-    c("boost_007", "Eu não curto muito [X].", "eu nõ KUR-tu MUI-tu", "Ich mag [X] nicht so.", ["smalltalk","boost"]),
-    c("boost_008", "Qual foi a melhor parte?", "kwau foi a me-LHOR PAR-tchi", "Was war der beste Teil?", ["geschehnisse","boost"]),
-    c("boost_009", "No fim das contas…", "nu fĩ das KÕn-tas", "Am Ende des Tages…", ["geschehnisse","boost"]),
-    c("boost_010", "Tava pensando em…", "TA-va pen-SÃn-du ẽ", "Ich hab überlegt…", ["geschehnisse","boost"]),
+  // Wetter: kombinieren
+  for (const a of EXTRA_TEMPLATES.wetter.a) {
+    for (const b of EXTRA_TEMPLATES.wetter.b) {
+      for (const c of EXTRA_TEMPLATES.wetter.c) {
+        const pt = ${a} ${b} ${c} ${pick(EXTRA_TEMPLATES.wetter.d)}.;
+        out.push({ id: makeId("auto_wetter", pt), pt, pron: "", de: "Wetter-Satz (automatisch erzeugt)", tags: ["wetter","basis"] });
+      }
+    }
+  }
 
-    // --- Mini-Dialog Startkarten (für Rollenspiel) ---
-    c("dialog_001", "— Tudo bem? — Tudo, e você?", "TU-du béĩ / TU-du", "— Alles gut? — Ja, und bei dir?", ["smalltalk","dialog"]),
-    c("dialog_002", "— Bora tomar um café? — Bora!", "BO-ra to-MAR ũ ka-FÉ", "— Kaffee? — Los!", ["essen","dialog"]),
-    c("dialog_003", "— Vai chover? — Acho que sim.", "vai ʃo-VER / A-ʃu ki sĩ", "— Regnet’s? — Ich glaube ja.", ["wetter","dialog"]),
-    c("dialog_004", "— O que você recomenda? — O prato do dia.", "re-ko-MEN-da / PRA-tu", "— Empfehlung? — Tagesgericht.", ["essen","dialog"]),
-    c("dialog_005", "— Como chega na praia? — Vai reto e vira à direita.", "vai HE-tu / VI-ra a dji-REi-ta", "— Wie zum Strand? — Geradeaus, rechts.", ["urlaub","dialog"]),
-  ];
+  // Essen: Wunsch + Item + Extra + Add
+  for (const w of EXTRA_TEMPLATES.essen.want) {
+    for (const it of EXTRA_TEMPLATES.essen.items) {
+      const pt = ${w} ${it}, ${pick(EXTRA_TEMPLATES.essen.extras)}, ${pick(EXTRA_TEMPLATES.essen.add)}.;
+      out.push({ id: makeId("auto_essen", pt), pt, pron: "", de: "Bestell-Satz (automatisch erzeugt)", tags: ["essen","basis"] });
+    }
+  }
 
-  // ---------- Plan Monat 1 (viel Input, klare Wochenfokusse) ----------
-  const MONTH1 = [
-    {
-      week: 1,
-      title: "Smalltalk-Basis + Wetter + Essen (Start-Flüssigkeit)",
-      focus: ["smalltalk","wetter","essen"],
-      goals: [
-        "20–30 Standard-Sätze automatisch können (ohne nachdenken)",
-        "Wetter & Gefühle in 2–3 Sätzen beschreiben",
-        "Bestellen/bitten/danken ohne Stocken"
-      ],
-      drills: [
-        "3× pro Tag: 60 Sekunden „Tudo bem?“-Mini-Dialog (du antwortest, Variante wählen)",
-        "Wetter-Update: 3 Sätze (hoje/amanhã/noite)",
-        "Im Kopf: 10× „Eu queria… / Tem…? / A conta…“"
-      ]
-    },
-    {
-      week: 2,
-      title: "Urlaub/Bewegen + Essen vertiefen (Unterwegs reden)",
-      focus: ["urlaub","essen"],
-      goals: ["Fragen stellen: wo/wie/was kostet/wann",
-        "„Dá pra…?“ & „Como eu chego…?“ sicher",
-        "Mini-Smalltalk in Situationen (Hotel, Café, Strand)"
-      ],
-      drills: [
-        "Roleplay: Hotel-Check-in (5 Runden)",
-        "Route erklären: reto/direita/esquerda (kurz & klar)",
-        "Bestellen + Sonderwünsche (sem…/com…/pouquinho)"
-      ]
-    },
-    {
-      week: 3,
-      title: "Geschehnisse + Pläne + Verabreden (Alltag echt)",
-      focus: ["geschehnisse","smalltalk"],
-      goals: [
-        "Kurz erzählen: was war heute los (2–4 Sätze)",
-        "Verabreden: morgen/um acht/ich bin gleich da",
-        "Reaktionen: sério?/que legal!/pois é…"
-      ],
-      drills: [
-        "„E aí, o que rolou?“ → 3 Antworten (kurz/mittel/lang)",
-        "Plan machen: „Vamos marcar…“ mit Uhrzeit & Ort",
-        "„Deu certo / deu ruim“ im Kontext"
-      ]
-    },
-    {
-      week: 4,
-      title: "Varianten, Natürlichkeit & freies Erzählen",
-  focus: ["smalltalk","boost","dialog","wetter","essen","urlaub","geschehnisse"],
-  goals: [
-    "Nicht mehr nur Standardsätze, sondern Varianten bilden",
-    "Klingt natürlicher (brasilianischer)",
-    "Kurz erzählen: gestern / heute / gleich",
-    "Mini-Gespräche ohne Stocken führen"
-  ],
-  drills: [
-    "Jeden Tag 3 Dialogkarten laut sprechen",
-    "Aus einem Satz 2 Varianten bauen",
-    "Täglicher Mini-Bericht: Was habe ich heute gemacht?",
-    "Smalltalk-Ketten: Frage → Antwort → Rückfrage"
-  ]
+  // Urlaub: Aussagen + Fragen
+  for (const tr of EXTRA_TEMPLATES.urlaub.travel) {
+    for (const wh of EXTRA_TEMPLATES.urlaub.when) {
+      for (const pl of EXTRA_TEMPLATES.urlaub.place) {
+        const pt = ${tr} ${wh} ${pl}.;
+        out.
+  push({ id: makeId("auto_urlaub", pt), pt, pron: "", de: "Reise-Satz (automatisch erzeugt)", tags: ["urlaub","basis"] });
+      }
+    }
+  }
+  for (const ask of EXTRA_TEMPLATES.urlaub.ask) {
+    for (const pl of EXTRA_TEMPLATES.urlaub.place) {
+      const pt = ${ask} ${pl}?;
+      out.push({ id: makeId("auto_urlaubq", pt), pt, pron: "", de: "Reise-Frage (automatisch erzeugt)", tags: ["urlaub","basis"] });
+    }
+  }
+
+  // Geschehnisse: opener + happened + reaction
+  for (const op of EXTRA_TEMPLATES.geschehnisse.open) {
+    for (const h of EXTRA_TEMPLATES.geschehnisse.happened) {
+      const pt = ${op} ${h}, ${pick(EXTRA_TEMPLATES.geschehnisse.reaction)}.;
+      out.push({ id: makeId("auto_ges", pt), pt, pron: "", de: "Geschehnisse-Satz (automatisch erzeugt)", tags: ["geschehnisse","basis"] });
+    }
+  }
+
+  // Begrenzen, damit es performant bleibt (du hast trotzdem sehr viel Input)
+  return out.slice(0, 450);
+}
+
+const EXTRA_CARDS = buildExtraCards();
+
+// Vereinheitlichung: überall dieselbe Kartenquelle verwenden
+function ALL_CARDS() {
+  // Manuelle CARDS + automatisch erzeugte EXTRA_CARDS
+ return ALL_CARDS().filter(card => {
+  const st = getCardState(card.id);
+  return st.stage !== "new" && st.due && st.due <= now;
+});
+
+// =====================
+// A) ROLLSPIELE (Dialog-Engine)
+// =====================
+const ROLEPLAYS = [
+  {
+    id: "rp_restaurant_1",
+    title: "Restaurant: Bestellung + Sonderwunsch",
+    tags: ["essen","smalltalk"],
+    scene: [
+      { who: "npc", pt: "Boa noite! Mesa pra quantas pessoas?", hint: "Antwort: Zahl + bitte." },
+      { who: "you", slot: true, key: "mesa" },
+      { who: "npc", pt: "Perfeito. Vocês vão querer beber alguma coisa?", hint: "Bestell ein Getränk." },
+      { who: "you", slot: true, key: "bebida" },
+      { who: "npc", pt: "E pra comer? O prato do dia tá ótimo.", hint: "Bestell Essen + Sonderwunsch (sem pimenta, etc.)." },
+      { who: "you", slot: true, key: "comida" },
+      { who: "npc", pt: "Beleza. Mais alguma coisa?", hint: "Kurz: só isso / por enquanto." },
+      { who: "you", slot: true, key: "fim" },
+    ],
+    suggestions: {
+      mesa: ["Mesa pra dois, por favor.", "Uma mesa pra três, por favor."],
+      bebida: ["Eu queria uma água com gás, por favor.", "Me vê um café sem açúcar, por favor."],
+      comida: ["Vou pedir o prato do dia, sem pimenta, por favor.", "Eu queria um sanduíche, pode tirar a cebola?"],
+      fim: ["Só isso, obrigado(a).", "Por enquanto é só, valeu!"],
+    }
+  },
+  {
+    id: "rp_hotel_1",
+    title: "Hotel: Check-in + Wi-Fi",
+    tags: ["urlaub","smalltalk"],
+    scene: [
+      { who: "npc", pt: "Oi! Tudo bem? Você tem reserva?", hint: "Sag: ja, ich habe reserviert." },
+      { who: "you", slot: true, key: "reserva" },
+      { who: "npc", pt: "Qual é o seu nome, por favor?", hint: "Name + ggf. sobrenome." },
+      { who: "you", slot: true, key: "nome" },
+      { who: "npc", pt: "Perfeito. Precisa de alguma coisa?", hint: "Wi-Fi Passwort fragen." },
+      { who: "you", slot: true, key: "wifi" },
+      { who: "npc", pt: "A senha é 'praia2026'. Mais alguma coisa?", hint: "Danke + fertig." },
+      { who: "you", slot: true, key: "fim" },
+    ],
+    suggestions: {
+      reserva: ["Sim, eu fiz uma reserva.", "Tenho sim, fiz a reserva ontem."],
+      nome: ["Meu nome é Hans Müller.", "É Hans, Müller."],
+      wifi: ["Qual é a senha do Wi-Fi, por favor?", "Você pode me passar a senha do Wi-Fi?"],
+      fim: ["Obrigado(a)! Só isso.", "Perfeito, valeu!"],
+    }
+  },
+  {
+    id: "rp_smalltalk_neighbors",
+    title: "Nachbarn: Wetter + Wochenende",
+    tags: ["smalltalk","wetter"],
+    scene: [
+      { who: "npc", pt: "E aí! Tudo bem?", hint: "Kurz antworten + Rückfrage." },
+      { who: "you", slot: true, key: "tudobem" },
+      { who: "npc", pt: "Nossa, hoje tá um calorão, né?", hint: "Reagieren + eigene Info." },
+      { who: "you", slot: true, key: "wetter" },
+      { who: "npc", pt: "Vai fazer alguma coisa no fim de semana?", hint: "Plan sagen." },
+      { who: "you", slot: true, key: "fds" },
+      { who: "npc", pt: "Que legal! Bora marcar alguma coisa?", hint: "Termin vorschlagen." },
+      { who: "you", slot: true, key: "marcar" },
+    ],
+    suggestions: {
+      tudobem: ["Tudo certo! E você?", "Tô bem! E você, tudo bem?"],
+      wetter: ["Tá quente pra caramba. Vou ficar mais em casa.", "Tá abafado hoje. Acho que vai chover mais tarde."],
+      fds: ["Vou descansar e talvez ir pra um café.", "Vou dar uma volta e aproveitar o sol."],
+      marcar: ["Bora! Umas oito tá bom?", "Sim! Vamos ver um horário amanhã."],
+    }
+  },
+  {
+    id: "rp_whatsapp_1",
+    title: "WhatsApp: Kombi aus Smalltalk + Plan",
+    tags: ["smalltalk","geschehnisse"],
+    scene: [
+      { who: "npc", pt: "E aí, sumido(a)! Como você tá?", hint: "Antwort + kurzer Status." },
+      { who: "you", slot: true, key: "status" },
+      { who: "npc", pt: "Top! O que rolou essa semana?", hint: "Kurz erzählen." },
+      { who: "you", slot: true, key: "rolou" },
+      { who: "npc", pt: "Bora tomar um café qualquer dia?", hint: "Termin vorschlagen." },
+      { who: "you", slot: true, key: "cafe" },
+    ],
+    suggestions: {
+      status: ["Tô bem! Foi corrido, mas tudo certo. E você?", "Tô de boa. E você?"],
+      rolou: ["Trabalhei bastante e o tempo mudou do nada.", "Aconteceu uma coisa engraçada no trabalho."],
+      cafe: ["Bora! Amanhã no fim da tarde?", "Pode ser! Umas oito tá bom?"],
+    }
+  },
+];
+
+// =====================
+// B) ERZÄHL-TRAINER (Gestern/Heute/Morgen, „rolou“, Alltag)
+// =====================
+const STORY_PROMPTS = [
+  { id:"st_1", title:"Heute in 3 Sätzen", pt:"Conta como foi o seu dia em 3 frases." },
+  { id:"st_2", title:"Gestern – was war gut?", pt:"O que foi a melhor parte de ontem?" },
+  { id:"st_3", title:"Morgen – Plan", pt:"O que você vai fazer amanhã?" },
+  { id:"st_4", title:"E aí, o que rolou?", pt:"E aí, o que rolou hoje? (2–4 frases)" },
+  { id:"st_5", title:"Wetter + Stimmung", pt:"Como tá o tempo e como você tá se sentindo?" },
+  { id:"st_6", title:"Essen", pt:"O que você comeu hoje? Foi bom?" },
+];
+
+function storyExamples(kind) {
+  const ex = {
+    short: [
+      "Hoje foi corrido, mas deu tudo certo.",
+      "Tá calor e eu tô meio cansado(a).",
+      "Vou dormir cedo hoje."
+    ],
+    medium: [
+      "Hoje foi corrido no trabalho, mas no fim deu tudo certo.",
+      "De tarde choveu do nada e eu fiquei preso no trânsito.",
+      "Agora tô de boa e vou tomar um café."
+    ],
+    long: [
+      "Hoje eu acordei cedo e já saí com pressa. No trabalho foi bem corrido, mas consegui resolver tudo.",
+      "O tempo mudou do nada: começou a chover e ficou abafado. Mesmo assim, deu tudo certo.",
+      "Agora eu tô mais tranquilo(a). Vou comer alguma coisa e descansar."
+    ]
+  };
+  return ex[kind] || ex.short;
+}
+
+// =====================
+// D) KI PROMPT GENERATOR (Copy/Paste statt API)
+// =====================
+const PROMPTS = {
+  plan: (hours) => Erstelle einen 6-Monats-Plan für brasilianisches Portugiesisch, Ziel: fließende Alltagsgespräche. Ich lerne ${hours} Stunden/Woche. Fokus: Sprechen & Hören, reale Situationen (Smalltalk, Wetter, Urlaub, Geschehnisse, Essen). Kein unnötiges Lesen/Schreiben. Strukturiere nach Monaten und Wochenzielen.,
+  vocab: (topic) => Liste die wichtigsten, häufigsten Wörter und Redewendungen im brasilianischen Portugiesisch zum Thema "${topic}" (Smalltalk/Wetter/Urlaub/Geschehnisse/Essen). Gib je Eintrag: PT-BR Phrase, deutsche Bedeutung, kurze Aussprachehilfe, 1 natürlicher Beispielsatz. Alltagssprache, nicht europäisches Portugiesisch.,
+  speaking: () => Sprich mit mir in einfachem brasilianischem Portugiesisch. Stelle kurze Fragen. Warte auf meine Antwort. Korrigiere sie, formuliere sie natürlicher um und stelle eine leicht schwierigere Anschlussfrage.,
+  roleplay: (scene) => Rollenspiel auf brasilianischem Portugiesisch: ${scene}. Pause nach jeder Zeile, damit ich antworte. Danach: verbessere meine Antwort zu natürlichem BR-PT (2 Varianten) und erkläre kurz, was daran besser klingt.,
+  grammar: (sentence) => Erkläre nur die Grammatik, die nötig ist, um diesen Satz zu verstehen und selbst zu benutzen: "${sentence}". Zeige 2–3 wiederverwendbare Muster mit Beispielen. Keine Theorie.,
+  reset: () => Teste mein gesprochenes brasilianisches Portugiesisch aus dieser Woche. Stelle Fragen mit den Sätzen, die ich gelernt habe. Identifiziere Schwächen (Wörter/Satzmuster) und baue daraus einen Plan für nächste Woche.
+  function showDrills() {
+  content.innerHTML = `
+    <div class="card">
+      <h2 style="margin:0 0 10px;">🗣 Drills – Sprechen & Alltag</h2>
+      <div class="row">
+        <button class="btn primary" id="goDrills">🎯 Schnell-Drills</button>
+        <button class="btn" id="goRoleplay">🎭 Rollenspiel</button>
+        <button class="btn" id="goStory">📝 Erzählen</button>
+        <button class="btn" id="goPrompt">🤖 Prompt-Generator</button>
+      </div>
+      <div class="small" style="margin-top:8px;">
+        Tipp: Auf iPhone fürs „Sprechen“ einfach Diktat (Mikrofon in der Tastatur) nutzen.
+      </div>
+    </div>
+
+    <div id="drillArea"></div>
+  `;
+
+  const area = document.getElementById("drillArea");
+
+  document.getElementById("goDrills").addEventListener("click", renderQuickDrills);
+  document.getElementById("goRoleplay").addEventListener("click", showRoleplays);
+  document.getElementById("goStory").addEventListener("click", showStoryTrainer);
+  document.getElementById("goPrompt").addEventListener("click", showPromptGenerator);
+
+  renderQuickDrills();
+
+  function renderQuickDrills() {
+    area.innerHTML = `
+      <div class="card">
+        <h3 style="margin:0 0 10px;">Drill 1: Mini-Smalltalk (Frage → Antwort → Rückfrage)</h3>
+        <div class="row">
+          <button class="btn primary" id="newMini">🎲 Neue Runde</button>
+          <button class="btn" id="ttsMini">🔊 Frage</button>
+        </div>
+        <div id="miniArea" style="margin-top:12px;"></div>
+      </div>
+
+      <div class="card">
+        <h3 style="margin:0 0 10px;">Drill 2: Wetter-Update in 3 Sätzen</h3>
+        <div class="row">
+          <button class="btn primary" id="wetterGo">▶️ Vorlage</button>
+          <button class="btn" id="wetterSpeak">🔊 Vorlesen</button>
+        </div>
+        <div id="wetterArea" style="margin-top:12px;"></div>
+      </div>
+
+      <div class="card">
+        <h3 style="margin:0 0 10px;">Drill 3: Essen bestellen (Varianten)</h3>
+        <div class="row">
+          <button class="btn primary" id="foodGo">▶️ Bestellung</button>
+          <button class="btn" id="foodSpeak">🔊 Vorlesen</button>
+        </div>
+        <div id="foodArea" style="margin-top:12px;"></div>
+      </div>
+    `;
+
+    const miniArea = document.getElementById("miniArea");
+    const wetterArea = document.getElementById("wetterArea");
+    const foodArea = document.getElementById("foodArea");
+    let currentMini = "Tudo bem?";
+
+    const newMini = () => {
+      const Q = pick([
+        "Tudo bem?",
+        "Como você tá hoje?",
+        "E aí, tudo certo?",
+        "Como tá o dia?",
+        "O que você vai fazer hoje?"
+      ]);
+      const A = pick([
+        "Tô bem! E você?",
+        "Tô de boa. E você?",
+        "Mais ou menos… e você?",
+        "Tô cansado(a), mas tudo certo. E você?",
+        "Tô animado(a)! E você?"
+      ]);
+      const U1 = variantize(A);
+      const U2 = variantize(A);
+
+      currentMini = Q;
+      miniArea.innerHTML = `
+        <p class="phrase"><b>Pergunta:</b> ${escapeHtml(Q)}</p>
+        <textarea id="miniInput" rows="2" placeholder="Deine Antwort (oder Diktat)…"></textarea>
+        <div class="row" style="margin-top:10px;">
+          <button class="btn good" id="miniShow">✅ Varianten zeigen</button>
+        </div>
+        <div id="miniOut" style="margin-top:10px;"></div>
+        <hr>
+        <div class="small"><b>Beispiel-Antworten:</b><br>• ${escapeHtml(A)}<br>• ${escapeHtml(U1)}<br>• ${escapeHtml(U2)}</div>
+      `;
+
+      document.getElementById("miniShow").addEventListener("click", () => {
+        const txt = document.getElementById("miniInput").value || "";
+        document.getElementById("miniOut").innerHTML = `
+          <div class="card" style="margin:0;">
+            <div class="small">Dein Input:</div>
+            <div><b>${escapeHtml(txt)}</b></div>
+            <div class="small" style="margin-top:8px;">Ziel: kurz, locker, mit Rückfrage.</div>
+          </div>
+        `;
+      });
+    };
+
+    const makeWetter = () => {const a = pick(["Hoje tá calor", "Hoje tá frio", "Tá nublado", "Tá ensolarado", "Tá chovendo", "Tá abafado"]);
+      const b = pick(["A previsão é de chuva", "Acho que vai abrir", "O tempo tá mudando", "Vai chover mais tarde", "De noite esfria"]);
+      const c = pick(["Vou levar um casaco", "Vou ficar mais em casa", "Bora dar uma volta mesmo assim", "Vou aproveitar pra caminhar", "Vou pedir uma comida"]);
+      const text = ${a}. ${b}. ${c}.;
+      wetterArea.innerHTML = <p class="phrase">${escapeHtml(text)}</p><div class="small">Aufgabe: sprich das laut 3×. Dann baue 1 eigene Variante.</div>;
+      wetterArea.dataset.tts = text;
+    };
+
+    const makeFood = () => {
+      const drink = pick(["um café", "um suco de laranja", "uma água com gás", "uma água sem gás"]);
+      const extra = pick(["sem açúcar", "com gelo", "sem gelo", "bem forte", "só um pouquinho de açúcar", "sem pimenta, por favor"]);
+      const food = pick(["um pão de queijo", "o prato do dia", "um sanduíche", "uma salada"]);
+      const note = pick(["pode tirar a cebola?", "tem opção vegetariana?", "pra viagem, por favor", "pra comer aqui, por favor"]);
+      const text = Eu queria ${drink}, ${extra}. E também ${food}. ${note}.;
+      foodArea.innerHTML = <p class="phrase">${escapeHtml(text)}</p><div class="small">Aufgabe: sprich das laut 2× und ändere dann 2 Teile (Getränk + Extra).</div>;
+      foodArea.dataset.tts = text;
+    };
+
+    document.getElementById("newMini").addEventListener("click", newMini);
+    document.getElementById("ttsMini").addEventListener("click", () => speak(currentMini));
+    document.getElementById("wetterGo").addEventListener("click", makeWetter);
+    document.getElementById("wetterSpeak").addEventListener("click", () => speak(wetterArea.dataset.tts || "Hoje tá calor."));
+    document.getElementById("foodGo").addEventListener("click", makeFood);
+    document.getElementById("foodSpeak").addEventListener("click", () => speak(foodArea.dataset.tts || "Eu queria um café, por favor."));
+    newMini();
+  }
+}
+// =====================
+// A) Rollenspiel Screen
+// =====================
+function showRoleplays() {
+  content.innerHTML = `
+    <div class="card">
+      <h2 style="margin:0 0 10px;">🎭 Rollenspiel</h2>
+      <div class="small">Du antwortest Zeile für Zeile. Nutze Diktat. Danach wählst du „Sitzt/Nochmal“ (SRS optional über Session).</div>
+      <div class="row" style="margin-top:10px;">
+        <select id="rpSelect">
+          ${ROLEPLAYS.map(r => `<option value="${r.id}">${escapeHtml(r.title)}</option>`).join("")}
+        </select>
+        <button class="btn primary" id="rpStart">▶️ Start</button>
+        <button class="btn" id="rpBack">⬅️ Zurück</button>
+      </div>
+    </div>
+    <div id="rpArea"></div>
+  `;
+
+  document.getElementById("rpBack").addEventListener("click", () => showDrills());
+  document.getElementById("rpStart").addEventListener("click", () => {
+    const id = document.getElementById("rpSelect").value;
+    const rp = ROLEPLAYS.find(x => x.id === id);
+    runRoleplay(rp);
+  });
+
+  runRoleplay(ROLEPLAYS[0]);
+}
+
+function runRoleplay(rp) {
+  const area = document.getElementById("rpArea");
+  let step = 0;
+  let transcript = [];
+
+  const render = () => {
+    const s = rp.scene[step];
+    if (!s) return done();
+
+    if (s.who === "npc") {
+      area.innerHTML = `
+        <div class="card">
+          <div class="badge">NPC</div>
+          <p class="phrase"><b>${escapeHtml(s.pt)}</b></p>
+          <div class="row">
+            <button class="btn" id="rpSpeak">🔊</button>
+            <button class="btn primary" id="rpNext">➡️ Antworten</button>
+          </div>
+          <div class="small" style="margin-top:8px;">${escapeHtml(s.hint || "")}</div>
+        </div>
+        ${transcriptView(transcript)}
+      `;
+      document.getElementById("rpSpeak").addEventListener("click", () => speak(s.pt));
+      document.getElementById("rpNext").addEventListener("click", () => { transcript.push({who:"npc", text:s.pt}); step++; render(); });
+    } else {
+      const sug = (rp.suggestions && rp.suggestions[s.key]) ? rp.suggestions[s.key] : [];
+      area.innerHTML = `
+        <div class="card">
+          <div class="badge">DU</div>
+          <textarea id="rpInput" rows="3" placeholder="Deine Antwort (Diktat) …"></textarea>
+          <div class="row" style="margin-top:10px;">
+            <button class="btn good" id="rpUseSug">👀 Vorschläge</button>
+            <button class="btn primary" id="rpSend">➡️ Senden</button>
+          </div>
+          <div id="rpSug" style="margin-top:10px;"></div>
+        </div>
+        ${transcriptView(transcript)}
+      `;
+      document.getElementById("rpUseSug").addEventListener("click", () => {
+        document.getElementById("rpSug").innerHTML = `
+          <div class="card" style="margin:0;">
+            <div class="small"><b>Natürliche Beispiele:</b></div>
+            <div class="small" style="margin-top:6px;">${sug.map(x => `• ${escapeHtml(x)}`).join("<br>") || "—"}</div>
+          </div>
+        `;
+      });
+      document.getElementById("rpSend").addEventListener("click", () => {
+        const txt = document.getElementById("rpInput").value || "";
+        transcript.push({who:"you", text:txt});
+        step++;
+        render();
+      });
+    }
+  };
+
+  const done = () => {
+    area.innerHTML = `
+      <div class="card">
+        <h3 style="margin:0 0 8px;">✅ Rollenspiel fertig</h3>
+        <div class="small">Du kannst jetzt eine KI-Korrektur über den Prompt-Generator holen (Rollenspiel-Prompt), oder direkt das nächste Szenario starten.</div>
+        <div class="row" style="margin-top:10px;">
+          <button class="btn primary" id="rpAgain">🎭 Nochmal</button>
+          <button class="btn" id="rpNextScenario">➡️ Nächstes</button>
+          <button class="btn" id="rpToPrompt">🤖 Prompt</button>
+        </div>
+      </div>
+      ${transcriptView(transcript)}
+    `;
+    document.getElementById("rpAgain").addEventListener("click", () => runRoleplay(rp));
+    document.getElementById("rpNextScenario").addEventListener("click", () => {
+      const idx = ROLEPLAYS.findIndex(x => x.id === rp.id);
+      runRoleplay(ROLEPLAYS[(idx + 1) % ROLEPLAYS.length]);
+    });
+    document.getElementById("rpToPrompt").addEventListener("click", () => showPromptGenerator(rp.title));
+  };
+
+  render();
+}
+
+function transcriptView(transcript) {
+  if (!transcript || transcript.length === 0) return "";
+  const lines = transcript.map(t => `<div class="small"><b>${t.who === "npc" ? "NPC" : "DU"}:</b> ${escapeHtml(t.text || "")}</div>`).join("");
+  return <div class="card"><h3 style="margin:0 0 8px;">Transcript</h3>${lines}</div>;
+}
+
+// =====================
+// B) Erzählen Screen
+// =====================
+function showStoryTrainer() {
+  content.innerHTML = `
+    <div class="card">
+      <h2 style="margin:0 0 10px;">📝 Erzählen (Gestern–Heute–Morgen)</h2>
+      <div class="row">
+        <select id="stSel">
+          ${STORY_PROMPTS.map(s => `<option value="${s.id}">${escapeHtml(s.title)}</option>`).join("")}
+        </select>
+        <button class="btn primary" id="stGo">▶️ Start</button>
+        <button class="btn" id="stBack">⬅️ Zurück</button>
+      </div>
+      <div class="small" style="margin-top:8px;">Ziel: 2–4 Sätze locker erzählen. Danach 2 Varianten schreiben/sprechen.</div>
+    </div>
+    <div id="stArea"></div>
+  `;
+
+  document.getElementById("stBack").addEventListener("click", () => showDrills());
+  document.getElementById("stGo").addEventListener("click", () => {
+    const id = document.getElementById("stSel").value;
+    const p = STORY_PROMPTS.find(x => x.id === id);
+    renderStory(p);
+  });
+
+  renderStory(STORY_PROMPTS[0]);
+}
+
+function renderStory(p) {
+  const area = document.getElementById("stArea");
+  const exS = storyExamples("short");
+  const exM = storyExamples("medium");
+  const exL = storyExamples("long");
+
+  area.innerHTML = `
+    <div class="card">
+      <div class="badge">Prompt (PT-BR)</div>
+      <p class="phrase"><b>${escapeHtml(p.pt)}</b></p>
+      <div class="row">
+        <button class="btn" id="stSpeak">🔊</button>
+        <button class="btn" id="stExamples">👀 Beispiele</button>
+      </div>
+      <textarea id="stInput" rows="5" placeholder="Dein Text (oder Diktat)…"></textarea>
+      <div class="row" style="margin-top:10px;">
+        <button class="btn good" id="stVariants">✅ 2 Varianten bauen</button>
+        <button class="btn" id="stToPrompt">🤖 KI-Verbesserung</button>
+      </div>
+      <div id="stOut" style="margin-top:10px;"></div>
+    </div>
+  `;
+
+  document.getElementById("stSpeak").addEventListener("click", () => speak(p.pt));
+  document.getElementById("stExamples").addEventListener("click", () => {
+    document.getElementById("stOut").innerHTML = `
+      <div class="card" style="margin:0;">
+        <div class="small"><b>Beispiele:</b></div>
+        <div class="small" style="margin-top:6px;">
+          • ${escapeHtml(exS.join(" "))}<br><br>
+          • ${escapeHtml(exM.join(" "))}<br><br>
+          • ${escapeHtml(exL.join(" "))}
+        </div>
+      </div>
+    `;
+  });
+
+  document.getElementById("stVariants").addEventListener("click", () => {
+    const txt = (document.getElementById("stInput").value || "").trim();
+    const v1 = txt ? txt.replace("Hoje", "Hoje cedo").replace("Ontem", "Ontem à noite") : "Hoje foi corrido, mas deu tudo certo.";
+    const v2 = txt ? ("Na real, " + txt).replace("mas", "só que") : "Na real, hoje foi tranquilo e eu tô de boa.";
+    document.getElementById("stOut").innerHTML = `
+      <div class="card" style="margin:0;">
+        <div class="small"><b>Variante 1:</b> ${escapeHtml(v1)}</div>
+        <div class="small" style="margin-top:6px;"><b>Variante 2:</b> ${escapeHtml(v2)}</div>
+      </div>
+    `;
+  });
+
+  document.getElementById("stToPrompt").addEventListener("click", () => showPromptGenerator("Erzählen", document.getElementById("stInput").value || ""));
+}
+
+// =====================
+// D) Prompt Generator Screen
+// =====================
+function showPromptGenerator(sceneTitle = "", userText = "") {
+  const topics = ["Smalltalk","Wetter","Urlaub","Geschehnisse","Essen"];
+  content.innerHTML = `
+    <div class="card">
+    <h2 style="margin:0 0 10px;">🤖 Prompt-Generator (Copy/Paste)</h2>
+      <div class="small">Kein API-Key, kein Risiko. Du kopierst in ChatGPT und nimmst die Antwort zurück in deine App (später bauen wir Import als Karten).</div>
+      <div class="row" style="margin-top:10px;">
+        <select id="pgType">
+          <option value="plan">1) 6-Monats-Plan</option>
+          <option value="vocab">2) High-Frequency Vokabeln</option>
+          <option value="speaking">3) Tutor-Gespräch</option>
+          <option value="roleplay">4) Rollenspiel-Tutor</option>
+          <option value="grammar">5) Grammatik-on-Demand</option>
+          <option value="reset">6) Wochen-Reset</option>
+        </select>
+        <button class="btn" id="pgBack">⬅️ Zurück</button>
+      </div>
+
+      <div id="pgOpts" style="margin-top:12px;"></div>
+
+      <div class="row" style="margin-top:10px;">
+        <button class="btn primary" id="pgBuild">▶️ Prompt erzeugen</button>
+        <button class="btn" id="pgCopy">📋 Kopieren</button>
+      </div>
+
+      <textarea id="pgOut" rows="10" placeholder="Prompt erscheint hier…"></textarea>
+    </div>
+  `;
+
+  document.getElementById("pgBack").addEventListener("click", () => showDrills());
+
+  const opts = document.getElementById("pgOpts");
+  const renderOpts = () => {
+    const type = document.getElementById("pgType").value;
+    if (type === "plan") {
+      opts.innerHTML = `
+        <div class="small">Stunden pro Woche:</div>
+        <input id="pgHours" type="number" value="6">
+      `;
+    } else if (type === "vocab") {
+      opts.innerHTML = `
+        <div class="small">Thema:</div>
+        <select id="pgTopic">${topics.map(t => `<option>${t}</option>`).join("")}</select>
+      `;
+    } else if (type === "roleplay") {
+      opts.innerHTML = `
+        <div class="small">Szene:</div>
+        <input id="pgScene" value="${escapeHtml(sceneTitle || "Restaurant bestellen")}" />
+      `;
+    } else if (type === "grammar") {
+      opts.innerHTML = `
+        <div class="small">Satz:</div>
+        <input id="pgSentence" value="${escapeHtml(userText || "Eu queria um café, por favor.")}" />
+      `;
+    } else {
+      opts.innerHTML = <div class="small">Keine Zusatzoptionen.</div>;
+    }
+  };
+
+  renderOpts();
+  document.getElementById("pgType").addEventListener("change", renderOpts);
+
+  document.getElementById("pgBuild").addEventListener("click", () => {
+    const type = document.getElementById("pgType").value;
+    let prompt = "";
+    if (type === "plan") prompt = PROMPTS.plan(document.getElementById("pgHours").value || 6);
+    if (type === "vocab") prompt = PROMPTS.vocab(document.getElementById("pgTopic").value || "Smalltalk");
+    if (type === "speaking") prompt = PROMPTS.speaking();
+    if (type === "roleplay") prompt = PROMPTS.roleplay(document.getElementById("pgScene").value || "Restaurant");
+    if (type === "grammar") prompt = PROMPTS.grammar(document.getElementById("pgSentence").value || "Eu queria um café, por favor.");
+    if (type === "reset") prompt = PROMPTS.reset();
+
+    document.getElementById("pgOut").value = prompt;
+  });
+
+  document.getElementById("pgCopy").addEventListener("click", async () => {
+    const txt = document.getElementById("pgOut").value || "";
+    if (!txt) return;
+    try {
+      await navigator.clipboard.writeText(txt);
+      alert("Prompt kopiert ✅");
+    } catch {
+      // Fallback: markieren
+      const ta = document.getElementById("pgOut");
+      ta.focus();
+      ta.select();
+      alert("Bitte manuell kopieren (markiert).");
+    }
+  });
 }
