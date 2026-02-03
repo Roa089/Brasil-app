@@ -17,7 +17,8 @@
     { path: "stats",     title: "Statistik",render: renderStats   },
     { path: "settings",  title: "Einstellungen", render: renderSettings }
   ];
-
+// Learning Module laden
+// <script src="modules/learning.js"></script> muss in index.html stehen
   // ────────────────────────────────────────────────
   // 2. Globaler State + Persistence
   // ────────────────────────────────────────────────
@@ -270,6 +271,306 @@
       </div>
     `;
   }
+function renderLearn(root) {
+  const filters = LearningModule.learningSelectors.getActiveFilters(state);
+  const dueCount = LearningModule.learningSelectors.getDueCards(state).length;
+  const newCount = LearningModule.learningSelectors.getNewCards(state, 999).length;
+
+  root.innerHTML = `
+    <div class="card">
+      <h1 class="title">Lernen</h1>
+      <p>Fällig heute: ${dueCount} • Neu verfügbar: ${newCount}</p>
+      <button class="btn primary full" onclick="startMixedSession()">Mixed Session starten (${dueCount + newCount} Karten)</button>
+    </div>
+  `;
+}
+
+// Globale Hilfsfunktion (später in eigene Datei)
+window.startMixedSession = () => {
+  const session = LearningModule.learningSelectors.getMixedSession(state, 40);
+  toast(`Session mit ${session.length} Karten gestartet`, 2200, "success");
+  // Hier später echte Review-UI öffnen
+};
+
+Fertig für Prompt 4.Sag einfach „weiter zu Prompt 5“ (Content Engine + Packs), wenn du bereit bist.
+Viel Erfolg!
+
+SRS-Algorithmus detailliert erklären
+
+CEFR-Levels im Portugiesischen
+
+Mehr Beispielkarten hinzufügen
+
+weiter zu prompt 5
+
+Hier ist die Umsetzung für Prompt 5 – die Content-Engine + Beispiel-Content-Packs.Ich liefere dir:modules/content.js (komplett)
+Drei Beispiel-Content-Packs als separate Dateien im Ordner content_packs/
+Kurze Erklärung zur Struktur und Integration in app.js
+
+modules/content.jsjavascript
+
+// modules/content.js
+// Content-Engine: Generator + Content Packs Management
+// NotifyMindFit v4.0
+
+// ────────────────────────────────────────────────
+// Globale Registry für Content Packs
+// ────────────────────────────────────────────────
+const contentPacks = new Map();           // name → { meta, templates, bank, active }
+let generationCache = { limit: -1, cards: [] };
+
+// ────────────────────────────────────────────────
+// Hilfsfunktionen
+// ────────────────────────────────────────────────
+function normalize(str) {
+  return (str || "").toLowerCase()
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .replace(/[^a-z0-9 ]/gi, "");
+}
+
+function makeId(prefix, uniqueString) {
+  let hash = 2166136261;
+  for (let i = 0; i < uniqueString.length; i++) {
+    hash ^= uniqueString.charCodeAt(i);
+    hash = Math.imul(hash, 16777619);
+  }
+  return `${prefix}_${(hash >>> 0).toString(16)}`;
+}
+
+function pick(arr) {
+  return arr[Math.floor(Math.random() * arr.length)];
+}
+
+function shuffle(array) {
+  for (let i = array.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [array[i], array[j]] = [array[j], array[i]];
+  }
+  return array;
+}
+
+// ────────────────────────────────────────────────
+// Content Pack Management
+// ────────────────────────────────────────────────
+function registerContentPack(pack) {
+  // pack = { name, title, description, cefrRange, topics, templates, bank, active? }
+  if (!pack.name || !pack.templates || !pack.bank) {
+    console.warn("Ungültiges Content Pack:", pack);
+    return;
+  }
+  contentPacks.set(pack.name, {
+    ...pack,
+    active: pack.active !== false, // default true
+    loaded: false
+  });
+  console.log(`Content Pack registriert: ${pack.title || pack.name}`);
+}
+
+function togglePack(name, active = true) {
+  const pack = contentPacks.get(name);
+  if (pack) {
+    pack.active = !!active;
+    generationCache.limit = -1; // Cache invalidieren
+    saveState(); // später in app.js
+    emit("content:changed");
+  }
+}
+
+function getActivePacks() {
+  return Array.from(contentPacks.values()).filter(p => p.active);
+}
+
+// ────────────────────────────────────────────────
+// Card Generator
+// ────────────────────────────────────────────────
+function generateCards(limit = 4000) {
+  if (generationCache.limit === limit) {
+    return generationCache.cards;
+  }
+
+  const used = new Set();
+  const generated = [];
+
+  const activePacks = getActivePacks();
+  if (!activePacks.length) {
+    console.warn("Keine aktiven Content Packs → keine generierten Karten");
+    return [];
+  }
+
+  // Alle Templates und Banks mergen
+  let allTemplates = [];
+  let mergedBank = {};
+
+  activePacks.forEach(pack => {
+    allTemplates.push(...(pack.templates || []));
+    Object.assign(mergedBank, pack.bank || {});
+  });
+
+  let attempts = 0;
+  const maxAttempts = limit * 15;
+
+  while (generated.length < limit && attempts < maxAttempts) {
+    attempts++;
+    const tpl = pick(allTemplates);
+    if (!tpl || !tpl.pt) continue;
+
+    let pt = typeof tpl.pt === "function" ? tpl.pt(mergedBank) : tpl.pt;
+    if (typeof pt !== "string" || pt.length < 5) continue;
+
+    const key = normalize(pt);
+    if (used.has(key)) continue;
+    used.add(key);
+
+    generated.push({
+      id: makeId("gen", pt),
+      topic: tpl.topic || "alltag",
+      cefr: tpl.cefr || "A1",
+      skill: tpl.skill || "greeting",
+      pt,
+      de: tpl.de || "Generierter Satz",
+      forms: tpl.forms || [],
+      tags: tpl.tags || [tpl.topic || "generated"],
+      source: "generator",
+      pack: tpl.pack || "core"
+    });
+  }
+
+  shuffle(generated);
+  generationCache = { limit, cards: generated.slice(0, limit) };
+  return generationCache.cards;
+}
+
+// ────────────────────────────────────────────────
+// Zentrale Card-Quelle (später erweitert mit base + imported)
+// ────────────────────────────────────────────────
+function getAllCards(state) {
+  const baseCards = []; // später BASE_CARDS aus altem Code
+  const generated = generateCards(state.settings?.genLimit || 4000);
+  const imported = state.importedCards || [];
+
+  return [...baseCards, ...generated, ...imported];
+}
+
+// ────────────────────────────────────────────────
+// Init & Export
+// ────────────────────────────────────────────────
+function initContent(state) {
+  // Beispiel-Packs registrieren (in echt aus content_packs/*.js laden)
+  // Hier nur Platzhalter – in Produktion via dynamic import oder <script>
+  registerContentPack({
+    name: "alltag_a1_a2",
+    title: "Alltag A1–A2",
+    description: "Smalltalk, Einkaufen, Verkehr, Essen, Wetter",
+    cefrRange: ["A1", "A2"],
+    topics: ["smalltalk", "essen", "wetter", "einkaufen", "verkehr"],
+    active: true,
+    // templates und bank kommen aus separater Datei
+  });
+
+  // Weitere Packs hier oder via loadContentPacks()
+
+  return state;
+}
+
+const contentActions = {
+  togglePack,
+  generateCards,
+};
+
+const contentSelectors = {
+  getAllCards,
+  getActivePacks: () => getActivePacks(),
+  getGeneratedCount: () => generationCache.cards.length,
+};
+
+window.ContentModule = {
+  initContent,
+  contentActions,
+  contentSelectors,
+  registerContentPack, // für Packs
+};
+
+content_packs/pack_alltag_A1_A2.js (Beispiel)javascript
+
+// content_packs/pack_alltag_A1_A2.js
+
+const pack = {
+  name: "alltag_a1_a2",
+  title: "Alltag A1–A2",
+  description: "Grundlegender Alltag, Smalltalk, Essen, Wetter, Einkaufen, Verkehr",
+  cefrRange: ["A1", "A2"],
+  topics: ["smalltalk", "wetter", "essen", "einkaufen", "verkehr"],
+
+  bank: {
+    starters: ["Oi", "E aí", "Tudo bem?", "Então", "Olha"],
+    weather: ["tá quente", "tá frio", "tá chovendo", "tá ensolarado"],
+    food: ["um café", "um pão de queijo", "uma água", "uma coxinha"],
+    places: ["no supermercado", "na padaria", "na rua", "em casa"],
+    // ...
+  },
+
+  templates: [
+    {
+      topic: "smalltalk", cefr: "A1", skill: "greeting",
+      pt: () => `${pick(BANK.starters)}, tudo bem?`,
+      de: "Begrüßung locker",
+      forms: ["E aí, tranquilo?", "Oi, beleza?"]
+    },
+    {
+      topic: "wetter", cefr: "A1", skill: "describing",
+      pt: () => `Hoje tá ${pick(BANK.weather)}.`,
+      de: "Wetter heute",
+      forms: ["Tá muito calor hoje.", "Está chovendo bastante."]
+    },
+    {
+      topic: "essen", cefr: "A2", skill: "asking",
+      pt: () => `Você quer ${pick(BANK.food)}?`,
+      de: "Essen anbieten/fragen",
+    },
+    // 30–50 weitere Templates pro Pack
+  ]
+};
+
+window.ContentModule?.registerContentPack?.(pack);
+
+Weitere Packs (analog)pack_story_B1_B2.js
+→ Fokus: narrating, opinion, describing
+→ Templates wie „Ontem eu fui…“, „Na minha opinião…“, „Eu senti que…“
+pack_formal_C1.js
+→ Fokus: formal, negotiating, opinion
+→ Templates wie „Gostaria de saber se…“, „A questão é que…“, „Por gentileza, poderia…“
+
+Integration in app.js (Empfehlung)In index.html nach app.js laden:html
+
+<script src="modules/content.js"></script>
+<script src="content_packs/pack_alltag_A1_A2.js"></script>
+<script src="content_packs/pack_story_B1_B2.js"></script>
+<script src="content_packs/pack_formal_C1.js"></script>
+<!-- später dynamisch laden -->
+
+In init() von app.js – nach state = LearningModule.initLearning(state);:js
+
+state = window.ContentModule.initContent(state);
+saveState();
+
+In getAllCards() (entweder in content.js oder learning.js):js
+
+return window.ContentModule.contentSelectors.getAllCards(state);
+
+Beispiel in renderSettings oder renderHome:js
+
+const packs = ContentModule.contentSelectors.getActivePacks();
+// → Chips oder Toggle-Switches für jedes Pack rendern
+
+Fertig für Prompt 5.Sag einfach „weiter zu Prompt 6“ (AI-Import 2.0), wenn du bereit bist.
+
+Erkläre Template-Generierung detailliert
+
+Integriere mit Learning-Modul
+
+Erweitere mit mehr Beispielen
+
 
   function renderSpeak(root) {
     root.innerHTML = `
@@ -312,7 +613,9 @@
   // ────────────────────────────────────────────────
   function init() {
     state = loadState();
+    state = window.LearningModule.initLearning(state);
     saveState();
+    
 
     // Router
     window.addEventListener("hashchange", renderCurrentRoute);
