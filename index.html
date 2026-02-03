@@ -1,27 +1,38 @@
 <!DOCTYPE html>
 <html lang="de">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Brasil Lern-App</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
+  <header class="top">
+    <div class="brand">
+      <span class="flag">🇧🇷</span>
+      <div>
+        <h1>Brasil Lern-App</h1>
+        <div class="sub">Monat 1: Smalltalk • Wetter • Urlaub • Geschehnisse • Essen</div>
+      </div>
+    </div>
+    <div class="toggles">
+      <label class="toggle">
+        <input id="ttsToggle" type="checkbox" />
+        <span>🔊 Vorlesen</span>
+      </label>
+    </div>
+  </header>
 
-<h1>🇧🇷 Brasil Lern-App</h1>
+  <nav id="menu" class="menu">
+    <button id="btnPlan">📅 Monat 1</button>
+    <button id="btnVocab">🧠 Input-Bibliothek</button>
+    <button id="btnSpeak">🗣 Drills</button>
+    <button id="btnGrammar">📘 Muster</button>
+    <button id="btnTest">🔁 Wochen-Check</button>
+  </nav>
 
-<div id="menu">
-  <button onclick="showPlan()">🎯 Lernplan</button>
-  <button onclick="showVocabulary()">🧠 Wortschatz</button>
-  <button onclick="showSpeaking()">🗣 Sprechen</button>
-  <button onclick="showGrammar()">📘 Grammatik</button>
-  <button onclick="showTest()">🔁 Wochen-Test</button>
-</div>
+  <main id="content" class="content"></main>
 
-<hr>
-
-<div id="content"></div>
-
-<script src="app.js"></script>
+  <script src="app.js" defer></script>
 </body>
 </html>
