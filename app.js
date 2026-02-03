@@ -108,13 +108,34 @@
   // -------------------------
   // Topics
   // -------------------------
-  const TOPICS = [
-    { key: "smalltalk", label: "Smalltalk" },
-    { key: "wetter", label: "Wetter" },
-    { key: "urlaub", label: "Urlaub" },
-    { key: "essen", label: "Essen" },
-    { key: "geschehnisse", label: "Geschehnisse" },
-  ];
+const TOPICS = [
+  { key: "smalltalk", label: "Smalltalk" },
+  { key: "wetter", label: "Wetter" },
+  { key: "urlaub", label: "Urlaub" },
+  { key: "essen", label: "Essen" },
+  { key: "geschehnisse", label: "Geschehnisse" },
+
+  { key: "arbeit", label: "Arbeit" },
+  { key: "freunde", label: "Freunde & Familie" },
+  { key: "einkaufen", label: "Einkaufen" },
+  { key: "arzt", label: "Arzt & Gesundheit" },
+  { key: "notfall", label: "Notfall" },
+  { key: "verkehr", label: "Unterwegs & Verkehr" },
+  { key: "telefon", label: "Telefon & Nachrichten" },
+  { key: "date", label: "Dating & Flirten" },
+  { key: "behoerde", label: "Behörde & Formulare" },
+  { key: "wohnung", label: "Wohnen & Reparaturen" },
+  { key: "hobbys", label: "Hobbys & Sport" },
+  { key: "meinung", label: "Meinung & Diskussion" },
+  { key: "zeitformen", label: "Zeitformen & Erzählen" },
+];
+
+   const TOPIC_ICON = {
+  smalltalk:"💬", wetter:"☀️", urlaub:"✈️", essen:"🍽️", geschehnisse:"🗞️",
+  arbeit:"💼", freunde:"👥", einkaufen:"🛒", arzt:"🩺", notfall:"🚨",
+  verkehr:"🚗", telefon:"📱", date:"❤️", behorde:"🏛️", wohnung:"🏠",
+  hobbys:"🏃", meinung:"🧠", zeitformen:"⏳"
+};
 
   // -------------------------
   // Base Cards (klein & sauber)
