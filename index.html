@@ -1,103 +1,71 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="de">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-  <meta name="theme-color" content="#0b0c12" />
-  <title>PT-BR Trainer</title>
-
-  <!-- PWA -->
-  <link rel="manifest" href="manifest.webmanifest" />
-  <meta name="application-name" content="PT-BR Trainer" />
-
-  <!-- iOS Add to Home Screen -->
-  <meta name="apple-mobile-web-app-capable" content="yes" />
-  <meta name="apple-mobile-web-app-status-bar-style" content="default" />
-  <meta name="apple-mobile-web-app-title" content="PT-BR Trainer" />
-
-  <!-- Optional iOS icon (wenn du später icons anlegst) -->
-  <!-- <link rel="apple-touch-icon" href="icons/icon-192.png"> -->
-
-  <link rel="stylesheet" href="style.css" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <title>NotifyMindFit – PT-BR Lern-App</title>
+  
+  <!-- PWA Meta Tags -->
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="NotifyMindFit">
+  <meta name="theme-color" content="#0066cc">
+  
+  <!-- iOS Splash Screens (Platzhalter; passe Größen an echte Bilder an) -->
+  <link rel="apple-touch-startup-image" media="(device-width: 430px) and (device-height: 932px) and (-webkit-device-pixel-ratio: 3)" href="/splash/iphone-14-pro-max.png">
+  <link rel="apple-touch-startup-image" media="(device-width: 428px) and (device-height: 926px) and (-webkit-device-pixel-ratio: 3)" href="/splash/iphone-14-plus.png">
+  <!-- Füge weitere für andere iOS-Geräte hinzu: iPhone 13, 12, etc. – generiere mit Tools wie favicon-generator -->
+  
+  <!-- Icons -->
+  <link rel="apple-touch-icon" sizes="180x180" href="/icons/apple-touch-icon.png">
+  <link rel="icon" sizes="192x192" href="/icons/icon-192.png">
+  <link rel="icon" sizes="512x512" href="/icons/icon-512.png">
+  
+  <!-- Manifest -->
+  <link rel="manifest" href="/manifest.webmanifest">
+  
+  <!-- Styles (später style.css einbinden) -->
+  <link rel="stylesheet" href="/style.css">
+  
+  <!-- Scripts -->
+  <script src="/app.js" defer></script>
 </head>
-
 <body>
-  <!-- App Shell -->
-  <div id="app" class="app-shell">
-    <!-- Top area (optional header / status area) -->
-    <header class="app-header">
-      <div class="app-header__left">
-        <div class="app-logo">PT</div>
-        <div class="app-title">
-          <div class="app-title__main">PT-BR Trainer</div>
-          <div class="app-title__sub">Offline • App-Feeling • GitHub Pages</div>
-        </div>
-      </div>
-      <div class="app-header__right">
-        <button class="btn ghost" id="btnQuickHelp" type="button" aria-label="Hilfe">?</button>
-      </div>
-    </header>
-
-    <!-- Main Content -->
-    <main id="content" class="app-content" role="main" aria-live="polite"></main>
-
-    <!-- Bottom Tabs -->
-    <nav class="tabbar" role="navigation" aria-label="App Navigation">
-      <button class="tab" data-route="home" id="tabHome" type="button" aria-label="Start">
-        <span class="tab__icon">🏠</span>
-        <span class="tab__label">Start</span>
-      </button>
-      <button class="tab" data-route="learn" id="tabLearn" type="button" aria-label="Lernen">
-        <span class="tab__icon">📚</span>
-        <span class="tab__label">Lernen</span>
-      </button>
-      <button class="tab" data-route="speak" id="tabSpeak" type="button" aria-label="Sprechen">
-        <span class="tab__icon">🎙️</span>
-        <span class="tab__label">Sprechen</span>
-      </button>
-      <button class="tab" data-route="import" id="tabImport" type="button" aria-label="Import">
-        <span class="tab__icon">⬇️</span>
-        <span class="tab__label">Import</span>
-      </button>
-      <button class="tab" data-route="stats" id="tabStats" type="button" aria-label="Stats">
-        <span class="tab__icon">📈</span>
-        <span class="tab__label">Stats</span>
-      </button>
-      <button class="tab" data-route="settings" id="tabSettings" type="button" aria-label="Einstellungen">
-        <span class="tab__icon">⚙️</span>
-        <span class="tab__label">Settings</span>
-      </button>
-    </nav>
-  </div>
-
-  <!-- Toast Layer -->
-  <div id="toastLayer" class="toast-layer" aria-live="assertive" aria-atomic="true"></div>
-
-  <!-- Modal Layer -->
-  <div id="modalLayer" class="modal-layer" aria-hidden="true"></div>
-
-  <!-- Bottom Sheet Layer -->
-  <div id="sheetLayer" class="sheet-layer" aria-hidden="true"></div>
-
-  <noscript>
-    <div style="padding:14px;color:#fff;">
-      Bitte JavaScript aktivieren – die App braucht JS.
-    </div>
-  </noscript>
-
-  <script src="app.js"></script>
-
-  <!-- Minimaler Bootstrapping-Fallback (falls app.js noch nicht Router hat) -->
-  <script>
-    // Setzt active Tab UI (nur optisch), bis Router in app.js übernimmt
-    (function () {
-      const tabs = document.querySelectorAll(".tab");
-      const setActive = (route) => {
-        tabs.forEach(t => t.classList.toggle("active", t.dataset.route === route));
-      };
-      setActive("home");
-      tabs.forEach(t => t.addEventListener("click", () => setActive(t.dataset.route)));
-    })();
-  </script>
+  <!-- Main Content Container -->
+  <div id="content"></div>
+  
+  <!-- Bottom Tab Bar -->
+  <nav id="bottom-tab-bar" class="bottom-tab-bar">
+    <button data-route="home" class="tab-item">
+      <span class="icon">🏠</span> <!-- Platzhalter-Icon; ersetze durch SVG oder Emoji -->
+      <span class="label">Start</span>
+    </button>
+    <button data-route="learn" class="tab-item">
+      <span class="icon">📚</span>
+      <span class="label">Lernen</span>
+    </button>
+    <button data-route="speak" class="tab-item">
+      <span class="icon">🗣️</span>
+      <span class="label">Sprechen</span>
+    </button>
+    <button data-route="import" class="tab-item">
+      <span class="icon">📥</span>
+      <span class="label">Import</span>
+    </button>
+    <button data-route="stats" class="tab-item">
+      <span class="icon">📊</span>
+      <span class="label">Stats</span>
+    </button>
+    <button data-route="settings" class="tab-item">
+      <span class="icon">⚙️</span>
+      <span class="label">Settings</span>
+    </button>
+  </nav>
+  
+  <!-- Modal Overlay (versteckt, für UI Utils) -->
+  <div id="modal-overlay" class="overlay hidden"></div>
+  
+  <!-- Toast Container (versteckt, für UI Utils) -->
+  <div id="toast-container"></div>
 </body>
 </html>
