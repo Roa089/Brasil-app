@@ -1,38 +1,45 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="de">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Brasil Lern-App</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#111111" />
+  <title>PT-BR Trainer</title>
+
+  <!-- iOS "Add to Home Screen" -->
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+  <meta name="apple-mobile-web-app-title" content="PT-BR Trainer" />
+
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <header class="top">
+  <header class="topbar">
     <div class="brand">
-      <span class="flag">🇧🇷</span>
+      <div class="logo">PT</div>
       <div>
-        <h1>Brasil Lern-App</h1>
-        <div class="sub">Monat 1: Smalltalk • Wetter • Urlaub • Geschehnisse • Essen</div>
+        <div class="brand-title">PT-BR Trainer</div>
+        <div class="brand-sub">Alltag • Sprechen • 1 Monat Einstieg</div>
       </div>
     </div>
-    <div class="toggles">
-      <label class="toggle">
-        <input id="ttsToggle" type="checkbox" />
-        <span>🔊 Vorlesen</span>
-      </label>
-    </div>
-  </header>
 
-  <nav id="menu" class="menu">
-    <button id="btnPlan">📅 Monat 1</button>
-    <button id="btnVocab">🧠 Input-Bibliothek</button>
-    <button id="btnSpeak">🗣 Drills</button>
-    <button id="btnGrammar">📘 Muster</button>
-    <button id="btnTest">🔁 Wochen-Check</button>
-  </nav>
+    <nav class="nav">
+      <button class="btn" id="btnHome">Start</button>
+      <button class="btn primary" id="btnLearn">Lernen</button>
+      <button class="btn" id="btnRoleplay">Rollenspiel</button>
+      <button class="btn" id="btnStory">Erzählen</button>
+      <button class="btn" id="btnImport">AI-Import</button>
+      <button class="btn" id="btnPrompts">Prompts</button>
+      <button class="btn" id="btnStats">Stats</button>
+    </nav>
+  </header>
 
   <main id="content" class="content"></main>
 
-  <script src="app.js" defer></script>
+  <footer class="footer">
+    <span class="muted">Tipp: iPhone → Teilen → „Zum Home-Bildschirm“</span>
+  </footer>
+
+  <script src="app.js"></script>
 </body>
 </html>
