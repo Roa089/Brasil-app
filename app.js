@@ -114,7 +114,6 @@ const TOPICS = [
   { key: "urlaub", label: "Urlaub" },
   { key: "essen", label: "Essen" },
   { key: "geschehnisse", label: "Geschehnisse" },
-
   { key: "arbeit", label: "Arbeit" },
   { key: "freunde", label: "Freunde & Familie" },
   { key: "einkaufen", label: "Einkaufen" },
@@ -123,11 +122,18 @@ const TOPICS = [
   { key: "verkehr", label: "Unterwegs & Verkehr" },
   { key: "telefon", label: "Telefon & Nachrichten" },
   { key: "date", label: "Dating & Flirten" },
+  { key: "bank", label: "Bank 6 Verträge" },
   { key: "behoerde", label: "Behörde & Formulare" },
   { key: "wohnung", label: "Wohnen & Reparaturen" },
   { key: "hobbys", label: "Hobbys & Sport" },
   { key: "meinung", label: "Meinung & Diskussion" },
   { key: "zeitformen", label: "Zeitformen & Erzählen" },
+  { key: "Probleme lösen", label: "Probleme lösen" },
+  { key: "Meinung", label: "Meinung & Diskussion" },
+  { key: "Zeitformen", label: "PErzählen & Zeitformen" },
+  { key: "Kultur", label: "Kultur & Freizeit" },
+  { key: "Strand", label: "Strand & Sport" },
+  { key: "Bar", label: "Ausgehen & Nachtleben" },  
 ];
 
    const TOPIC_ICON = {
@@ -223,6 +229,170 @@ const TOPICS = [
     { topic: "geschehnisse", pt: () => `Você viu o que aconteceu ${pick(["ontem", "hoje cedo", "essa semana"])}?`, de: "Hast du gesehen...?" },
     { topic: "geschehnisse", pt: () => `${pick(BANK.reactions)} Que loucura!`, de: "Reaktion" },
   ];
+
+   // ====== BANK Erweiterung: 20 Themen ======
+BANK.people = ["eu", "você", "a gente", "meu amigo", "minha amiga", "meu chefe", "minha colega"];
+BANK.polite = ["por favor", "por gentileza", "se puder", "quando der", "rapidinho"];
+BANK.confirm = ["beleza", "fechado", "combinado", "show", "tá bom"];
+BANK.fillers = ["tipo", "na real", "então", "assim", "basicamente", "sinceramente"];
+BANK.intens = ["um pouco", "meio", "bem", "pra caramba", "demais", "de boa"];
+
+BANK.workNouns = ["reunião", "prazo", "projeto", "tarefa", "email", "cliente", "prioridade", "alinhamento"];
+BANK.workVerbs = ["preciso", "vou", "posso", "tenho que", "consigo", "prefiro", "sugiro"];
+BANK.workPhrases = ["fazer um alinhamento", "dar um retorno", "marcar uma call", "fechar um ponto", "seguir com isso"];
+
+BANK.family = ["família", "mãe", "pai", "irmã", "irmão", "filho", "filha", "amigos"];
+BANK.hangout = ["tomar um café", "almoçar", "dar uma volta", "ir ao parque", "ver um filme", "fazer um churrasco"];
+
+BANK.shopPlaces = ["no supermercado", "na feira", "na padaria", "na farmácia", "na loja"];
+BANK.shopVerbs = ["preciso de", "tô procurando", "você tem", "quanto custa", "onde fica", "tem em promoção"];
+BANK.shopItems = ["frutas", "legumes", "pão", "leite", "arroz", "feijão", "ovos", "queijo", "café", "água"];
+BANK.shopQty = ["um", "dois", "meio quilo de", "um quilo de", "um pacote de", "uma unidade de"];
+
+BANK.healthSymptoms = ["dor de cabeça", "febre", "tosse", "dor nas costas", "dor de garganta", "enjoo", "alergia"];
+BANK.healthNeeds = ["um remédio", "uma receita", "um atestado", "uma consulta", "um exame"];
+BANK.healthQuestions = ["desde quando", "com que frequência", "piora quando", "melhora com", "tem alergia a algo"];
+
+BANK.emergency = ["perdi meu documento", "fui roubado", "preciso de ajuda", "tive um acidente", "tô passando mal"];
+BANK.emergencyWhere = ["aqui", "ali", "na rua", "perto do metrô", "no centro", "em casa"];
+
+BANK.transport = ["ônibus", "metrô", "trem", "uber", "táxi", "carro", "bicicleta"];
+BANK.directions = ["vira à direita", "vira à esquerda", "segue reto", "fica perto", "fica longe", "do lado de"];
+BANK.places2 = ["o aeroporto", "a estação", "o centro", "o hotel", "a praia", "o hospital"];
+
+BANK.phone = ["mensagem", "áudio", "ligação", "whatsapp", "email"];
+BANK.phoneVerbs = ["te mando", "me chama", "me liga", "responde", "confirma", "avisar"];
+
+BANK.home = ["chuveiro", "porta", "janela", "luz", "internet", "aquecimento", "vazamento", "chave"];
+BANK.fixVerbs = ["quebrou", "parou de funcionar", "tá com problema", "precisa trocar", "precisa consertar"];
+
+BANK.gov = ["documento", "formulário", "agendamento", "protocolo", "comprovante", "assinatura"];
+BANK.govVerbs = ["preciso", "quero", "gostaria de", "vim para", "tenho que"];
+BANK.govPhrases = ["resolver isso", "dar entrada", "atualizar meus dados", "tirar uma dúvida"];
+
+BANK.bank = ["conta", "cartão", "limite", "fatura", "taxa", "contrato", "assinatura", "parcelamento"];
+BANK.bankVerbs = ["cancelar", "renegociar", "consultar", "atualizar", "confirmar", "bloquear"];
+
+BANK.problem = ["não deu certo", "tá dando erro", "não aparece", "travou", "não entendi", "ficou confuso"];
+BANK.problemVerbs = ["pode me ajudar", "consegue verificar", "vamos tentar de novo", "tem como resolver", "qual é a alternativa"];
+
+BANK.opinion = ["na minha opinião", "eu acho que", "eu vejo assim", "faz sentido", "não concordo", "depende"];
+BANK.arguments = ["por um lado", "por outro lado", "o ponto é que", "no geral", "em resumo", "o que importa é"];
+
+BANK.timeFrames = ["ontem", "hoje", "amanhã", "na semana passada", "daqui a pouco", "mais tarde", "no mês que vem"];
+BANK.pastVerbs = ["fui", "falei", "comi", "trabalhei", "resolvi", "acabei", "cheguei"];
+BANK.futureVerbs = ["vou", "pretendo", "quero", "planejo", "devo", "posso"];
+
+BANK.culture = ["música", "filme", "série", "show", "restaurante", "praia", "trilha", "museu"];
+BANK.cultureVerbs = ["curtir", "assistir", "conhecer", "explorar", "recomendar", "evitar"];
+
+BANK.formalOpen = ["Bom dia", "Boa tarde", "Boa noite", "Olá"];
+BANK.formalVerbs = ["gostaria", "poderia", "seria possível", "venho solicitar", "preciso informar"];
+BANK.formalClose = ["Atenciosamente", "Agradeço desde já", "Fico no aguardo", "Muito obrigado(a)"];
+
+// ====== TEMPLATES Erweiterung: 20 Themen (A1–C1) ======
+TEMPLATES.push(
+  // --- smalltalk (A1–B2) ---
+  { topic:"smalltalk", cefr:"A1", pt:()=>`${pick(BANK.fillers)}, tudo bem?`, de:"Begrüßung locker" },
+  { topic:"smalltalk", cefr:"A1", pt:()=>`De onde você é?`, de:"Herkunft fragen" },
+  { topic:"smalltalk", cefr:"A2", pt:()=>`O que você faz da vida?`, de:"Was machst du beruflich?" },
+  { topic:"smalltalk", cefr:"B1", pt:()=>`Ultimamente eu tenho ${pick(["trabalhado muito", "feito mais exercícios", "dormido melhor", "estado na correria"])}.`, de:"Smalltalk Update" },
+
+  // --- wetter (A1–A2) ---
+  { topic:"wetter", cefr:"A1", pt:()=>`Hoje tá ${pick(BANK.weatherState)} ${pick(BANK.places)}.`, de:"Wetter heute" },
+  { topic:"wetter", cefr:"A2", pt:()=>`Parece que ${pick(["vai chover", "vai abrir o tempo", "vai esfriar", "vai esquentar"])} ${pick(["mais tarde", "amanhã", "no fim de semana"])}.`, de:"Wetter Prognose" },
+
+  // --- urlaub (A1–B2) ---
+  { topic:"urlaub", cefr:"A1", pt:()=>`Eu vou viajar ${pick(["amanhã", "no fim de semana", "nas férias"])}.`, de:"Reise sagen" },
+  { topic:"urlaub", cefr:"A2", pt:()=>`Você recomenda ${pick(["um lugar legal", "um restaurante bom", "um passeio"])} ${pick(["por aqui", "no centro", "perto do hotel"])}?`, de:"Empfehlung" },
+  { topic:"urlaub", cefr:"B2", pt:()=>`Se eu tiver tempo, eu queria ${pick(["explorar mais a cidade", "conhecer lugares menos turísticos", "fazer um bate-volta"])}.`, de:"Reise Absicht" },
+
+  // --- essen (A1–B2) ---
+  { topic:"essen", cefr:"A1", pt:()=>`${pick(BANK.foodWant)} ${pick(BANK.foodItems)}, ${pick(BANK.polite)}.`, de:"Bestellen" },
+  { topic:"essen", cefr:"A2", pt:()=>`Pode ser ${pick(["sem pimenta", "sem açúcar", "sem gelo"])}?`, de:"Sonderwunsch" },
+  { topic:"essen", cefr:"B1", pt:()=>`Isso aqui tá ${pick(["muito bom", "bem gostoso", "ótimo"])}.`, de:"Kompliment" },
+
+  // --- geschehnisse (A2–B2) ---
+  { topic:"geschehnisse", cefr:"A2", pt:()=>`${pick(BANK.timeFrames)} ${pick(BANK.events)}, ${pick(BANK.connectors)} ${pick(["deu tudo certo", "acabou bem", "foi tranquilo no final"])}.`, de:"Was passiert ist" },
+  { topic:"geschehnisse", cefr:"B2", pt:()=>`No fim das contas, ${pick(["aprendi bastante", "valeu a pena", "foi uma experiência"])}.`, de:"Reflexion" },
+
+  // --- arbeit (A2–C1) ---
+  { topic:"arbeit", cefr:"A2", pt:()=>`Tenho uma ${pick(BANK.workNouns)} ${pick(["hoje", "amanhã", "mais tarde"])}.`, de:"Arbeit: Termin" },
+  { topic:"arbeit", cefr:"B1", pt:()=>`${pick(BANK.workVerbs)} ${pick(["mandar", "responder", "revisar"])} esse ${pick(["email", "documento", "relatório"])} ${pick(["hoje", "até amanhã", "o quanto antes"])}.`, de:"Arbeit: Aufgabe" },
+  { topic:"arbeit", cefr:"B2", pt:()=>`Vamos ${pick(BANK.workPhrases)} e definir ${pick(["próximos passos", "prioridades", "responsáveis"])}.`, de:"Arbeit: Abstimmung" },
+  { topic:"arbeit", cefr:"C1", pt:()=>`Pra deixar claro: o objetivo é ${pick(["reduzir risco", "ganhar previsibilidade", "alinhar expectativas", "otimizar o fluxo"])}.`, de:"Arbeit: präzise formulieren" },
+
+  // --- freunde (A1–B2) ---
+  { topic:"freunde", cefr:"A1", pt:()=>`Bora ${pick(BANK.hangout)} ${pick(["hoje", "amanhã", "no fim de semana"])}?`, de:"Treffen vorschlagen" },
+  { topic:"freunde", cefr:"A2", pt:()=>`Faz tempo que a gente não se vê.`, de:"Lang nicht gesehen" },
+  { topic:"freunde", cefr:"B1", pt:()=>`Eu tô a fim de ${pick(["sair um pouco", "conversar", "relaxar"])}.`, de:"Wunsch ausdrücken" },
+
+  // --- einkaufen (A1–B1) ---
+  { topic:"einkaufen", cefr:"A1", pt:()=>`${pick(BANK.shopVerbs)} ${pick(BANK.shopQty)} ${pick(BANK.shopItems)}, ${pick(BANK.polite)}.`, de:"Einkaufen: Nachfrage" },
+  { topic:"einkaufen", cefr:"A2", pt:()=>`Onde fica ${pick(["o pão", "o leite", "o caixa", "a fila"])}?`, de:"Einkaufen: Wo ist…?" },
+  { topic:"einkaufen", cefr:"B1", pt:()=>`Tem ${pick(["mais barato", "em promoção", "de outra marca"])}?`, de:"Einkaufen: Alternative" },
+
+  // --- arzt (A2–B2) ---
+  { topic:"arzt", cefr:"A2", pt:()=>`Eu tô com ${pick(BANK.healthSymptoms)}.`, de:"Symptom" },
+  { topic:"arzt", cefr:"B1", pt:()=>`Isso começou ${pick(["ontem", "há dois dias", "essa semana"])} e ${pick(["piora", "melhora"])} ${pick(["à noite", "quando eu ando", "quando eu como"])}.`, de:"Symptom Verlauf" },
+  { topic:"arzt", cefr:"B2", pt:()=>`Você acha que eu preciso de ${pick(BANK.healthNeeds)}?`, de:"Arzt: Bedarf" },
+
+  // --- notfall (A2–B2) ---
+  { topic:"notfall", cefr:"A2", pt:()=>`${pick(BANK.emergency)}.`, de:"Notfall: Problem" },
+  { topic:"notfall", cefr:"B1", pt:()=>`Pode chamar a polícia/ambulância? Eu tô ${pick(["aqui", "perto", "no centro"])}.`, de:"Notfall: Hilfe" },
+  { topic:"notfall", cefr:"B2", pt:()=>`Eu preciso registrar um boletim de ocorrência.`, de:"Notfall: Anzeige" },
+
+  // --- verkehr (A1–B2) ---
+  { topic:"verkehr", cefr:"A1", pt:()=>`Como eu chego em ${pick(BANK.places2)}?`, de:"Weg fragen" },
+  { topic:"verkehr", cefr:"A2", pt:()=>`${pick(BANK.directions)}, depois ${pick(["segue reto", "vira à esquerda", "vira à direita"])}.`, de:"Weg erklären" },
+  { topic:"verkehr", cefr:"B1", pt:()=>`Qual é o melhor ${pick(["ônibus", "metrô", "caminho"])} pra ir ${pick(["agora", "mais tarde"])}?`, de:"Verkehr: beste Option" },
+
+  // --- telefon (A2–B2) ---
+  { topic:"telefon", cefr:"A2", pt:()=>`Te mando uma ${pick(BANK.phone)} ${pick(["agora", "mais tarde"])}.`, de:"Nachricht senden" },
+  { topic:"telefon", cefr:"B1", pt:()=>`Me chama no WhatsApp que fica mais fácil.`, de:"Kontaktkanal" },
+  { topic:"telefon", cefr:"B2", pt:()=>`Se eu demorar pra responder, é porque tô em reunião.`, de:"Erklärung" },
+
+  // --- wohnung (A2–B2) ---
+  { topic:"wohnung", cefr:"A2", pt:()=>`A ${pick(BANK.home)} ${pick(BANK.fixVerbs)}.`, de:"Wohnung: Problem" },
+  { topic:"wohnung", cefr:"B1", pt:()=>`Você conhece alguém que conserta isso?`, de:"Handwerker" },
+  { topic:"wohnung", cefr:"B2", pt:()=>`Dá pra agendar uma visita pra verificar?`, de:"Termin vereinbaren" },
+
+  // --- behorde (B1–C1) ---
+  { topic:"behorde", cefr:"B1", pt:()=>`${pick(BANK.formalOpen)}. ${pick(BANK.govVerbs)} ${pick(BANK.gov)}.`, de:"Behörde: Anliegen" },
+  { topic:"behorde", cefr:"B2", pt:()=>`Eu trouxe ${pick(["todos os documentos", "o comprovante", "a cópia assinada"])}.`, de:"Behörde: Unterlagen" },
+  { topic:"behorde", cefr:"C1", pt:()=>`Gostaria de entender quais são os próximos passos e prazos envolvidos.`, de:"Behörde: präzise Frage" },
+
+  // --- bank (B1–C1) ---
+  { topic:"bank", cefr:"B1", pt:()=>`Eu preciso ${pick(["bloquear", "desbloquear", "atualizar"])} meu ${pick(["cartão", "cadastro", "limite"])}.`, de:"Bank: Anliegen" },
+  { topic:"bank", cefr:"B2", pt:()=>`Eu quero renegociar a ${pick(["fatura", "taxa", "parcela"])}.`, de:"Bank: verhandeln" },
+  { topic:"bank", cefr:"C1", pt:()=>`Existe alguma alternativa com condições mais transparentes?`, de:"Bank: C1 Formulierung" },
+
+  // --- smallproblems (A2–C1) ---
+  { topic:"smallproblems", cefr:"A2", pt:()=>`Não deu certo. Vamos tentar de novo?`, de:"Problem: nochmal" },
+  { topic:"smallproblems", cefr:"B1", pt:()=>`Tá dando erro e eu não sei por quê.`, de:"Problem: Fehler" },
+  { topic:"smallproblems", cefr:"B2", pt:()=>`${pick(BANK.problemVerbs)}? ${pick(["O que aparece aí?", "Qual foi o passo anterior?", "Quando começou?"])}`, de:"Problem: Debug Fragen" },
+  { topic:"smallproblems", cefr:"C1", pt:()=>`Pra evitar isso no futuro, podemos padronizar o processo.`, de:"Problem: Prozess verbessern" },
+
+  // --- meinung (B1–C1) ---
+  { topic:"meinung", cefr:"B1", pt:()=>`${pick(BANK.opinion)}, isso ${pick(["faz sentido", "não faz sentido", "depende"])}.`, de:"Meinung" },
+  { topic:"meinung", cefr:"B2", pt:()=>`${pick(BANK.arguments)}, eu concordo, mas tem um detalhe.`, de:"Nuance" },
+  { topic:"meinung", cefr:"C1", pt:()=>`Eu entendo o ponto, porém a evidência sugere outra coisa.`, de:"Diskussion C1" },
+
+  // --- zeitformen (A2–C1) ---
+  { topic:"zeitformen", cefr:"A2", pt:()=>`${pick(BANK.timeFrames)} eu ${pick(BANK.pastVerbs)} ${pick(["cedo", "tarde", "no centro", "em casa"])}.`, de:"Vergangenheit erzählen" },
+  { topic:"zeitformen", cefr:"B1", pt:()=>`Depois disso, eu ${pick(["decidi", "resolvi", "percebi", "mudei de ideia"])}.`, de:"Story: Sequenz" },
+  { topic:"zeitformen", cefr:"C1", pt:()=>`Se eu tivesse mais tempo, eu teria feito diferente.`, de:"Konjunktiv/Irreales C1" },
+
+  // --- kultur (A2–B2) ---
+  { topic:"kultur", cefr:"A2", pt:()=>`Você curte ${pick(BANK.culture)}?`, de:"Interesse" },
+  { topic:"kultur", cefr:"B1", pt:()=>`Me recomenda uma ${pick(["série", "música", "filme"])} boa?`, de:"Empfehlung" },
+  { topic:"kultur", cefr:"B2", pt:()=>`Eu gostei porque ${pick(["tem uma história forte", "é bem leve", "é bem brasileiro"])}.`, de:"Begründung" },
+
+  // --- formal (B1–C1) ---
+  { topic:"formal", cefr:"B1", pt:()=>`${pick(BANK.formalOpen)}. ${pick(BANK.formalVerbs)} ${pick(["confirmar", "solicitar", "informar"])} uma coisa.`, de:"Formal: Einstieg" },
+  { topic:"formal", cefr:"B2", pt:()=>`Poderia, por gentileza, me enviar isso por escrito?`, de:"Formal: Bitte" },
+  { topic:"formal", cefr:"C1", pt:()=>`${pick(BANK.formalClose)}.`, de:"Formal: Abschluss" }
+);
 
   function buildGeneratedCards(limit) {
     const out = [];
@@ -340,7 +510,7 @@ const TOPICS = [
   // State / Storage
   // -------------------------
   const STORAGE_KEY = "ptbr_app_v3";
-  const DEFAULT_GEN_LIMIT = 1200; // "riesig", aber noch flott
+  const DEFAULT_GEN_LIMIT = 1400; // "riesig", aber noch flott
 
   function defaultState() {
     return {
