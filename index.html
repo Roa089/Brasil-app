@@ -29,7 +29,16 @@
   
   <!-- Scripts -->
   <script src="/app.js" defer></script>
-</head>
+</head> <!-- Core-Module zuerst -->
+<script src="modules/content.js" defer></script>
+
+<!-- Content Packs – statisch geladen (am einfachsten zum Start) -->
+<script src="content_packs/pack_alltag_A1_A2.js" defer></script>
+<script src="content_packs/pack_story_B1_B2.js"   defer></script>
+<script src="content_packs/pack_formal_C1.js"     defer></script>
+
+<!-- später evtl. mehr Packs -->
+<!-- <script src="content_packs/pack_work_B2_C1.js" defer></script> -->
 <body>
   <!-- Main Content Container -->
   <div id="content"></div>
