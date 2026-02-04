@@ -439,6 +439,29 @@ function bindLearnEvents() {
   const skillSet = new Set(state.learning.filters?.skills || []);
   $$(".chip[data-skill]").forEach(btn => btn.classList.toggle("on", skillSet.has(btn.dataset.skill)));
 }
+  // Flip card logic
+  const flipCard = $("#flipCard");
+  if (flipCard) {
+    // Tap anywhere on card -> flip (aber nicht wenn Button geklickt wird)
+    flipCard.addEventListener("click", (e) => {
+      const tag = (e.target?.tagName || "").toLowerCase();
+      if (tag === "button" || tag === "input" || tag === "select" || tag === "textarea") return;
+      learnFlipped = !learnFlipped;
+      render();
+    });
+  }
+
+  $("#revealBtn")?.addEventListener("click", (e) => {
+    e.stopPropagation();
+    learnFlipped = true;
+    render();
+  });
+
+  $("#hideBtn")?.addEventListener("click", (e) => {
+    e.stopPropagation();
+    learnFlipped = false;
+    render();
+  });
 
 /* ---------- Speak View ---------- */
 function viewSpeak() {
