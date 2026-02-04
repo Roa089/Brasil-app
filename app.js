@@ -515,6 +515,10 @@ function bindSpeakEvents() {
     toast("Shadowing gestartet ✅");
     render();
   });
+  $("#stopMic")?.addEventListener("click", () => {
+  speakingActions.stopListening();
+  toast("Mikrofon aus");
+});
 
   $("#prevSpeak")?.addEventListener("click", () => { speakingActions.prev(); render(); });
   $("#nextSpeak")?.addEventListener("click", () => { speakingActions.next(); render(); });
