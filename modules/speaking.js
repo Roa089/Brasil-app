@@ -6,6 +6,7 @@
 let _state = null;
 let _cards = [];
 let _session = null;
+let _recognizer = null; // <-- NEW: keep active SpeechRecognition instanc
 
 export function initSpeaking(state, cards) {
   _state = state;
@@ -113,8 +114,21 @@ function startListen(onPartial, onFinal, onError) {
   rec.onerror = (e) => onError?.(e);
 
   rec.start();
-  return { ok: true, stop: () => rec.stop() };
-}
+     _recognizer = rec;
+    rec.onend = () => { _recognizer = null; };
+
+    rec.start();
+  return { ok: true };
+  }
+  
+  // NEW: stop microphone / recognition cleanly
+  export function stopListening() {
+    if (_recognizer) {
+      try { _recognizer.stop(); } catch {}
+       _recognizer = null;
+   }
+  }
+
 
 /* ---------- Diff Highlight ---------- */
 function diffWords(target, spoken) {
@@ -252,7 +266,8 @@ export const speakingActions = {
   next,
   prev,
   setRate,
-  listenAndCompare
+  listenAndCompare,
+  stopListening // <-- NEW export
 };
 
 export const speakingSelectors = {
