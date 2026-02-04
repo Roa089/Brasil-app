@@ -1,80 +1,63 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="de">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-  <title>NotifyMindFit – PT-BR Lern-App</title>
-  
-  <!-- PWA Meta Tags -->
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-  <meta name="apple-mobile-web-app-title" content="NotifyMindFit">
-  <meta name="theme-color" content="#0066cc">
-  
-  <!-- iOS Splash Screens (Platzhalter; passe Größen an echte Bilder an) -->
-  <link rel="apple-touch-startup-image" media="(device-width: 430px) and (device-height: 932px) and (-webkit-device-pixel-ratio: 3)" href="/splash/iphone-14-pro-max.png">
-  <link rel="apple-touch-startup-image" media="(device-width: 428px) and (device-height: 926px) and (-webkit-device-pixel-ratio: 3)" href="/splash/iphone-14-plus.png">
-  <!-- Füge weitere für andere iOS-Geräte hinzu: iPhone 13, 12, etc. – generiere mit Tools wie favicon-generator -->
-  
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#0b0c12" />
+  <title>PT-BR Trainer</title>
+
+  <!-- iOS PWA -->
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="apple-mobile-web-app-title" content="PT-BR Trainer" />
+
   <!-- Icons -->
-  <link rel="apple-touch-icon" sizes="180x180" href="/icons/apple-touch-icon.png">
-  <link rel="icon" sizes="192x192" href="/icons/icon-192.png">
-  <link rel="icon" sizes="512x512" href="/icons/icon-512.png">
-  
+  <link rel="apple-touch-icon" href="icons/icon-192.png" />
+  <link rel="icon" href="icons/icon-192.png" />
+
   <!-- Manifest -->
-  <link rel="manifest" href="/manifest.webmanifest">
-  
-  <!-- Styles (später style.css einbinden) -->
-  <link rel="stylesheet" href="/style.css">
-  
-  <!-- Scripts -->
-  <script src="/app.js" defer></script>
-</head> <!-- Core-Module zuerst -->
-<script src="modules/content.js" defer></script>
+  <link rel="manifest" href="manifest.webmanifest" />
 
-<!-- Content Packs – statisch geladen (am einfachsten zum Start) -->
-<script src="content_packs/pack_alltag_A1_A2.js" defer></script>
-<script src="content_packs/pack_story_B1_B2.js"   defer></script>
-<script src="content_packs/pack_formal_C1.js"     defer></script>
+  <link rel="stylesheet" href="style.css" />
+</head>
 
-<!-- später evtl. mehr Packs -->
-<!-- <script src="content_packs/pack_work_B2_C1.js" defer></script> -->
 <body>
-  <!-- Main Content Container -->
-  <div id="content"></div>
-  
+  <!-- App Header -->
+  <header class="app-header">
+    <div class="app-title">PT-BR Trainer</div>
+  </header>
+
+  <!-- Main Content -->
+  <main id="app" class="app-content"></main>
+
   <!-- Bottom Tab Bar -->
-  <nav id="bottom-tab-bar" class="bottom-tab-bar">
-    <button data-route="home" class="tab-item">
-      <span class="icon">🏠</span> <!-- Platzhalter-Icon; ersetze durch SVG oder Emoji -->
-      <span class="label">Start</span>
-    </button>
-    <button data-route="learn" class="tab-item">
-      <span class="icon">📚</span>
-      <span class="label">Lernen</span>
-    </button>
-    <button data-route="speak" class="tab-item">
-      <span class="icon">🗣️</span>
-      <span class="label">Sprechen</span>
-    </button>
-    <button data-route="import" class="tab-item">
-      <span class="icon">📥</span>
-      <span class="label">Import</span>
-    </button>
-    <button data-route="stats" class="tab-item">
-      <span class="icon">📊</span>
-      <span class="label">Stats</span>
-    </button>
-    <button data-route="settings" class="tab-item">
-      <span class="icon">⚙️</span>
-      <span class="label">Settings</span>
-    </button>
+  <nav class="tabbar">
+    <button data-route="home" class="tab active">🏠<span>Start</span></button>
+    <button data-route="learn" class="tab">📚<span>Lernen</span></button>
+    <button data-route="speak" class="tab">🎤<span>Sprechen</span></button>
+    <button data-route="import" class="tab">⬇️<span>Import</span></button>
+    <button data-route="stats" class="tab">📊<span>Stats</span></button>
+    <button data-route="settings" class="tab">⚙️<span>Settings</span></button>
   </nav>
-  
-  <!-- Modal Overlay (versteckt, für UI Utils) -->
-  <div id="modal-overlay" class="overlay hidden"></div>
-  
-  <!-- Toast Container (versteckt, für UI Utils) -->
-  <div id="toast-container"></div>
+
+  <!-- Toasts -->
+  <div id="toast-root"></div>
+
+  <!-- Modal -->
+  <div id="modal-root"></div>
+
+  <!-- Bottom Sheet -->
+  <div id="sheet-root"></div>
+
+  <script src="app.js"></script>
+
+  <script>
+    // Register Service Worker
+    if ("serviceWorker" in navigator) {
+      window.addEventListener("load", () => {
+        navigator.serviceWorker.register("./sw.js");
+      });
+    }
+  </script>
 </body>
 </html>
