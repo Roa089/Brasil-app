@@ -496,8 +496,9 @@ function viewSpeak() {
         <div class="de">${escapeHtml(c.de)}</div>
 
         <div class="row" style="margin-top:12px;">
-          <button class="btn" id="sttBtn">🎙️ Sprechen & Vergleichen</button>
-          <button class="btn" id="markSpeakDone">✅ zählt als Mission</button>
+         <button class="btn" id="sttBtn">🎙️ Sprechen & Vergleichen</button>
+<button class="btn danger" id="stopMic">🔇 Mikro aus</button>
+<button class="btn" id="markSpeakDone">✅ zählt als Mission</button>
         </div>
 
         <div id="compare" style="margin-top:12px;">
