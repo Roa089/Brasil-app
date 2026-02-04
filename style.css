@@ -319,3 +319,53 @@ input::placeholder{
 @media (prefers-reduced-motion: reduce){
   *{ transition:none !important; animation:none !important; }
 }
+/* ---------- Flip Card (PT vorne, DE hinten) ---------- */
+.flip-wrap{
+  perspective: 1200px;
+}
+
+.flip-card{
+  position: relative;
+  width: 100%;
+  min-height: 190px;
+  border-radius: var(--r-lg);
+  transform-style: preserve-3d;
+  transition: transform .5s cubic-bezier(.2,.9,.2,1);
+  cursor: pointer;
+}
+
+.flip-card.is-flipped{
+  transform: rotateY(180deg);
+}
+
+.flip-face{
+  position: absolute;
+  inset: 0;
+  padding: 14px;
+  border-radius: var(--r-lg);
+  background:
+    radial-gradient(120% 120% at 30% 0%, rgba(255,255,255,.07), transparent 55%),
+    linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.04));
+  border: 1px solid rgba(255,255,255,.12);
+  box-shadow: var(--shadow);
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+
+.flip-back{
+  transform: rotateY(180deg);
+}
+
+.flip-hint{
+  margin-top: 10px;
+  font-size: 12px;
+  color: rgba(244,246,255,.60);
+}
+
+.flip-actions{
+  margin-top: 12px;
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  align-items: center;
+}
