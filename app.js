@@ -233,9 +233,12 @@ function renderBadges() {
 let learnSession = [];
 let learnIndex = 0;
 
+let learnFlipped = false; // merkt Flip-Status für aktuelle Karte
+
 function startLearnSession() {
   learnSession = learningSelectors.getMixedSession(30);
   learnIndex = 0;
+  learnFlipped = false;
 
   if (!learnSession.length) {
     toast("Keine Karten gefunden (Filter zu streng?)");
