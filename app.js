@@ -313,36 +313,53 @@ function viewLearn() {
     </div>
   `;
 
-  const cardUi = c ? `
-    <div class="card">
-      <div class="row" style="justify-content:space-between;">
-        <div class="pill">Topic: <b>${escapeHtml(c.topic)}</b></div>
-        <div class="pill">CEFR: <b>${escapeHtml(c.cefr)}</b></div>
-        <div class="pill">Skill: <b>${escapeHtml(c.skill)}</b></div>
-      </div>
+    const cardUi = c ? `
+    <div class="flip-wrap">
+      <div class="flip-card ${learnFlipped ? "is-flipped" : ""}" id="flipCard" title="Tippe zum Umdrehen">
+        <!-- FRONT: PT -->
+        <div class="flip-face flip-front">
+          <div class="row" style="justify-content:space-between;">
+            <div class="pill">Topic: <b>${escapeHtml(c.topic)}</b></div>
+            <div class="pill">CEFR: <b>${escapeHtml(c.cefr)}</b></div>
+            <div class="pill">Skill: <b>${escapeHtml(c.skill)}</b></div>
+          </div>
 
-      <hr/>
-      <div class="pt">${escapeHtml(c.pt)}</div>
-      <div class="de">${escapeHtml(c.de)}</div>
+          <hr/>
+          <div class="pt">${escapeHtml(c.pt)}</div>
+          <div class="flip-hint">Tippe die Karte, um die Übersetzung zu sehen.</div>
 
-      ${c.forms?.length ? `
-        <hr/>
-        <div class="small muted">Varianten</div>
-        ${c.forms.map(f => `<div class="pill" style="margin-top:8px;">${escapeHtml(f)}</div>`).join("")}
-      ` : ""}
+          <div class="flip-actions">
+            <button class="btn" id="ttsCard" type="button">🔊 Anhören</button>
+            <button class="btn primary" id="revealBtn" type="button">Übersetzung zeigen</button>
+            <div class="pill">Karte ${learnIndex + 1}/${learnSession.length}</div>
+          </div>
+        </div>
 
-      <hr/>
-      <div class="small muted">Bewertung (SRS)</div>
-      <div class="row" style="margin-top:10px;">
-        <button class="btn danger" id="g0">0 – falsch</button>
-        <button class="btn" id="g1">1 – schwer</button>
-        <button class="btn primary" id="g2">2 – ok</button>
-        <button class="btn" id="g3">3 – leicht</button>
-      </div>
+        <!-- BACK: DE + Forms -->
+        <div class="flip-face flip-back">
+          <div class="row" style="justify-content:space-between;">
+            <div class="pill">Übersetzung</div>
+            <button class="btn" id="hideBtn" type="button">Zurück</button>
+          </div>
 
-      <div class="row" style="margin-top:12px;">
-        <button class="btn" id="ttsCard">🔊 Anhören</button>
-        <div class="pill">Karte ${learnIndex + 1}/${learnSession.length}</div>
+          <hr/>
+          <div class="pt">${escapeHtml(c.de)}</div>
+
+          ${c.forms?.length ? `
+            <hr/>
+            <div class="small muted">Varianten</div>
+            ${c.forms.map(f => `<div class="pill" style="margin-top:8px;">${escapeHtml(f)}</div>`).join("")}
+          ` : ""}
+
+          <hr/>
+          <div class="small muted">Bewertung (SRS)</div>
+          <div class="row" style="margin-top:10px;">
+            <button class="btn danger" id="g0" type="button">0 – falsch</button>
+            <button class="btn" id="g1" type="button">1 – schwer</button>
+            <button class="btn primary" id="g2" type="button">2 – ok</button>
+            <button class="btn" id="g3" type="button">3 – leicht</button>
+          </div>
+        </div>
       </div>
     </div>
   ` : `
