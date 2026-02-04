@@ -272,6 +272,7 @@ function gradeLearn(grade) {
   saveState();
 
   learnIndex++;
+  learnFlipped = false;
   if (learnIndex >= learnSession.length) {
     toast("Session fertig 🎉");
     learnIndex = learnSession.length - 1;
